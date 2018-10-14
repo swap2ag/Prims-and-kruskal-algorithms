@@ -1,0 +1,3 @@
+g++ -Wall -fexceptions -O2  -c "F:\IIT_Delhi\1st_sem\ELL781 Software fundamentals\Assignments\Assignment2\sfct_assignment2\graph.cpp" -o obj\Release\graph.o
+g++ -Wall -fexceptions -O2  -c "F:\IIT_Delhi\1st_sem\ELL781 Software fundamentals\Assignments\Assignment2\sfct_assignment2\main.cpp" -o obj\Release\main.o
+g++ -o bin\Release\sfct_assignment2.exe obj\Release\graph.o obj\Release\main.o  -s 

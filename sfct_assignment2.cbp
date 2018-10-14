@@ -23,11 +23,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="classlnode.cpp" />
 		<Unit filename="graph.cpp" />
-		<Unit filename="graphMine.cpp" />
 		<Unit filename="main.cpp" />
-		<Unit filename="prims.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
