@@ -24,6 +24,7 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="graph.cpp" />
+		<Unit filename="graph.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

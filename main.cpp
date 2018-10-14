@@ -56,6 +56,12 @@ void createGraph(graph g)
         g.setEdge(srcVertex-1,destVertex-1,cost);
     }
 }
+
+void createDefaultGraph(graph g)
+{
+
+}
+
 int main()
 {
     int n0;
@@ -64,7 +70,7 @@ int main()
     cin>>n0;
     graph g(n0);
     createGraph(g);
-//    createDefaultGraph(g);
+    createDefaultGraph(g);
     displayGraph(g);
     return 0;
 }
