@@ -26,6 +26,8 @@
 		<Unit filename="graph.cpp" />
 		<Unit filename="graph.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="prims.cpp" />
+		<Unit filename="prims.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

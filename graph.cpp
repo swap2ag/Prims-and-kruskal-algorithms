@@ -1,12 +1,14 @@
 #include"graph.h"
+
 graph::graph(int n)
+
 {
     adjMat = new int[n*n];
     for(int i=0;i<n;i++)
     {
         for(int j=0;j<n;j++)
         {
-            *(adjMat+i*n+j) = 0;
+            *(adjMat+i*n+j) = 65534;
         }
     }
     numNodes = n;
@@ -26,3 +28,17 @@ void graph::setEdge(int i,int j, int val)
     *(adjMat+i*numNodes+j) = val;
     *(adjMat+j*numNodes+i) = val;
 }				//set the edge between the ith and jth vertex as the val by modifying the adjacency matrix
+int graph::findMaxCost()
+{
+    int maxCost = *(adjMat);
+    for(int i=0;i<numNodes;i++)
+    {
+        for(int j=0;j<numNodes;j++)
+        {
+            if(getEdge(i,j) != INF_COST && getEdge(i,j)>maxCost)
+                maxCost = getEdge(i,j);
+        }
+    }
+    return maxCost;
+
+}
