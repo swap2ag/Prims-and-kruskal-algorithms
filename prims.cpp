@@ -16,11 +16,12 @@ void dispArrays(int *lowcost,int *closest,int n)
 }
 graph prims(graph g)
 {
-    int i,j,k,minimum,totalCost=0;
+    int i,j,k,minimum;
+    int index=0;          // for mst
     int n = g.getNumNodes();
     int* lowcost = new int [n];
     int *closest = new int[n];
-
+    g.mst = new int[3*(n-1)];
 
     *closest = 0;   // since it is of no use
     *lowcost = 0;   // since it is of no use
@@ -43,9 +44,12 @@ graph prims(graph g)
                 k = j;
             }
         }
-
-        cout<<k<<" "<<*(closest+k)<<endl;
-        totalCost = totalCost + g.getEdge(k,closest[k]);
+        *(g.mst+index) = k;
+        *(g.mst+index+1) = *(closest+k);
+        *(g.mst+index+2) = g.getEdge(k,closest[k]);
+        index = index+3;
+//        cout<<k<<" "<<*(closest+k)<<endl;
+        g.mstCost = g.mstCost + g.getEdge(k,closest[k]);
         *(lowcost+k) = INF_COST;
         for(j=1;j<n;j++)
         {
@@ -57,6 +61,5 @@ graph prims(graph g)
         }
     }
     dispArrays(lowcost,closest,n);
-    cout<<"Total cost: "<<totalCost;
-
+    return g;
 }

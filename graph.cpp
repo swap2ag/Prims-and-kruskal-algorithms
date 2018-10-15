@@ -12,6 +12,7 @@ graph::graph(int n)
         }
     }
     numNodes = n;
+    mstCost = 0;
 }										// Number of nodes have to be passed and and a graph with no edges will be constructed by this
 //=====Getters======
 int graph::getNumNodes()

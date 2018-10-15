@@ -1,11 +1,11 @@
 #include <iostream>
 #include<time.h>
-#include <chrono>
+//#include <chrono>
 
 #include "graph.h"
 #include"prims.h"
 using namespace std;
-using namespace std::chrono;
+//using namespace std::chrono;
 
 int getVertex()
 {
@@ -91,26 +91,7 @@ void createDefaultGraph(graph g)
     g.setEdge(5,4,6);
 
 }
-/*
-void prims(graph g)
-{
-    int n = g.getNumNodes();
-    int* lowcost = new int [n];
-    int *closest = new int[n];
-    int i;//,j,k;
-    for(i=1;i<n;i++)
-    {
-        *(lowcost+i) = g.getEdge(i,0);
-        *(closest+i) = 0;
-    }
-    cout<<"Closest: ";
-    for(i=0;i<n;i++)
-        cout<<*(closest+i)<<" ";
-    cout<<"\nlowcost: \n";
-    for(i=0;i<n;i++)
-        cout<<*(lowcost+i)<<" ";
-}
-*/
+
 int main()
 {
     int n0;
@@ -127,7 +108,7 @@ int main()
     displayGraph(g);
 //    auto start = high_resolution_clock::now();
     start_t = clock();
-    prims(g);
+    g = prims(g);
 
     end_t = clock();
 //    auto stop = high_resolution_clock::now();
@@ -135,5 +116,6 @@ int main()
 //    cout << "Time taken by function: "<< duration.count() << " milliseconds" << endl;
     total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC*1000;
     cout<<"\nTotal time: "<<total_t<<"ms "<<endl;
+
     return 0;
 }
