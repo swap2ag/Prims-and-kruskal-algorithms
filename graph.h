@@ -1,7 +1,7 @@
 #ifndef GRAPH_INCLUDE
 #define GRAPH_INCLUDE
 
-#define INF_COST 65535
+#define INF_COST 65535          // for infinity cost
 class graph
 {
 
@@ -18,7 +18,7 @@ class graph
         //=====Setters=====
         void setEdge(int i,int j, int val);
         int findMaxCost();
-
+        void displayMST();
 
 };
 

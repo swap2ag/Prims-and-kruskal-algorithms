@@ -25,9 +25,14 @@
 		</Compiler>
 		<Unit filename="graph.cpp" />
 		<Unit filename="graph.h" />
+		<Unit filename="kruskal.cpp" />
+		<Unit filename="kruskal.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="pascal_priority_queue.cpp" />
 		<Unit filename="prims.cpp" />
 		<Unit filename="prims.h" />
+		<Unit filename="priorityQueue.cpp" />
+		<Unit filename="priorityQueue.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

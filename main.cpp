@@ -115,7 +115,9 @@ int main()
 //    auto duration = duration_cast<milliseconds>(stop - start);
 //    cout << "Time taken by function: "<< duration.count() << " milliseconds" << endl;
     total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC*1000;
-    cout<<"\nTotal time: "<<total_t<<"ms "<<endl;
+    cout<<"Prim's algorithm MST (total cost: "<<g.mstCost<<"; runtime: "<<total_t<<"ms)\n";
+    g.displayMST();
+
 
     return 0;
 }

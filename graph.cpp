@@ -1,5 +1,6 @@
 #include"graph.h"
-
+#include<iostream>
+using namespace std;
 graph::graph(int n)
 
 {
@@ -42,4 +43,12 @@ int graph::findMaxCost()
     }
     return maxCost;
 
+}
+void graph::displayMST()
+{
+    for(int i=0;i<3*(numNodes-1);i=i+3)
+    {
+        cout<<"("<<*(mst+i)+1<<","<<*(mst+i+1)+1<<")\n";
+    }
+    cout<<"\b \b";
 }
