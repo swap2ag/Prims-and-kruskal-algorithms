@@ -1,18 +1,5 @@
 #ifndef PQ_ENTRY_INCLUDE
 #define PQ_ENTRY_INCLUDE
-class PQ_entry
-{
-    int id;
-    int priority;
-public:
-    // getters
-    int getPriority();
-    int getID();
-    // setters
-    void setPriority(int x);
-    void setID(int x);
-};
-
 // initial() places process with id p on the queue
 /*
 void initial(int P)

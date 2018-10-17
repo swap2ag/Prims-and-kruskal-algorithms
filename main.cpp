@@ -1,21 +1,21 @@
 #include <iostream>
-#include<fstream>
+#include <fstream>
 //#include<time.h>
-#include <chrono>
-#include<windows.h>
+//#include <chrono>
+#include <windows.h>
 
 #include "graph.h"
-#include"prims.h"
+#include "prims.h"
 using namespace std;
-using namespace std::chrono;
-inline long long PerformanceCounter() noexcept
+//using namespace std::chrono;
+long long PerformanceCounter()
 {
     LARGE_INTEGER li;
     ::QueryPerformanceCounter(&li);
     return li.QuadPart;
 }
 // -----------------------------------------
-inline long long PerformanceFrequency() noexcept
+long long PerformanceFrequency()
 {
     LARGE_INTEGER li;
     ::QueryPerformanceFrequency(&li);
@@ -150,8 +150,8 @@ int main()
 // ------------------------------
 //  g = createDefaultGraph(g);
 //  g = createGraphManually(g);
-//  g = createGraphFromFile("new_input.txt",g,n0);
-    g = createGraphFromFile("new_inputDefault.txt",g,n0);
+  g = createGraphFromFile("new_input.txt",g,n0);
+//    g = createGraphFromFile("new_inputDefault.txt",g,n0);
     g.findMaxCost();
 //    cout<<"\n\n\n======== Max cost: "<<g.getMaxCost();
 
