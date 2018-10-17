@@ -1,13 +1,12 @@
 #ifndef GRAPH_INCLUDE
 #define GRAPH_INCLUDE
 
-#define INF_COST 65535          // for infinity cost
 class graph
 {
 
 	int *adjMat;										//Corresponding adjacency matrix which represents the graph
 	int numNodes;										//Number of nodes in the graph
-
+    int infCost,maxCost;
 	public:
         int *mst;
         int mstCost;
@@ -15,9 +14,11 @@ class graph
         //=====Getters======
         int getNumNodes();
         int getEdge(int i, int j);          // Returns cost of edge between ith and jth node of graph otherwise returns false. This info is stored in adjacency matrix of the graph.
+        int getInfCost();
+        int getMaxCost();
         //=====Setters=====
         void setEdge(int i,int j, int val);
-        int findMaxCost();
+        void findMaxCost();
         void displayMST();
 
 };

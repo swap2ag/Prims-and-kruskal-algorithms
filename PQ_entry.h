@@ -1,22 +1,20 @@
-int currenttime()
-{
-    return 0;
-}
-
-struct processtype
+#ifndef PQ_ENTRY_INCLUDE
+#define PQ_ENTRY_INCLUDE
+class PQ_entry
 {
     int id;
     int priority;
+public:
+    // getters
+    int getPriority();
+    int getID();
+    // setters
+    void setPriority(int x);
+    void setID(int x);
 };
-int priority(processtype a)
-{
-    return a.priority;
-
-
-}
-
 
 // initial() places process with id p on the queue
+/*
 void initial(int P)
 {
     processtype process;
@@ -39,4 +37,6 @@ void select()
     process.priority = process.priority+100*(endtime-begintime);    // adjust priority to incorporate amount of time used.
     INSERT(process,WAITING_QUEUE);  //put selected process back on queue with new priority
 }
+*/
 
+#endif // PQ_ENTRY_INCLUDE

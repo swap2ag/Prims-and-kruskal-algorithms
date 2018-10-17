@@ -3,5 +3,5 @@
 
 graph kruskal(graph g)
 {
-
+    return g;
 }

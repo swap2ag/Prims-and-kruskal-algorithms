@@ -1,16 +1,17 @@
 #include <iostream>
-#include<time.h>
-//#include <chrono>
+#include<fstream>
+//#include<time.h>
+#include <chrono>
 
 #include "graph.h"
 #include"prims.h"
 using namespace std;
-//using namespace std::chrono;
+using namespace std::chrono;
+
 
 int getVertex()
 {
     int vertex;
-
     cin>>vertex;
     return vertex;
 }
@@ -21,11 +22,11 @@ void displayGraph(graph g)
     for (int i =0 ;i<n;i++)
     {
         for(int j=0;j<n;j++)
-            cout<<g.getEdge(i,j)<<"\t";
+            cout<<g.getEdge(i,j)<<" ";
         cout<<"\n";
     }
 }
-void createGraph(graph g)
+graph createGraphManually(graph g)
 {
     int n0 = g.getNumNodes();
     int srcVertex, destVertex,cost;
@@ -56,14 +57,15 @@ void createGraph(graph g)
                     destVertex = getVertex();
                 }
             }
-        cout<<"Enter the weight of edge between them: ";
+        cout<<"Enter the weight of edge between them[0 or -1 to represent no edge]: ";
         cin>>cost;
         g.setEdge(srcVertex-1,destVertex-1,cost);
         cout<<endl;
     }
+    return g;
 }
-
-void createDefaultGraph(graph g)
+/*
+graph createDefaultGraph(graph g)
 {
     g.setEdge(0,1,6);
     g.setEdge(0,2,1);
@@ -90,6 +92,37 @@ void createDefaultGraph(graph g)
     g.setEdge(5,3,2);
     g.setEdge(5,4,6);
 
+    return g;
+}
+*/
+//---UNDER DEVELOPMENT---- need to enter
+graph createGraphFromFile(char st[],graph g,int n)
+{
+    int i,j;
+
+    int *MYadjMat=new int[n*n];
+    ifstream graphFile(st);
+    if(!graphFile)
+        {
+            cout<<"Cannot open file!!";
+            return g;
+        }
+     for(i=0;i<n;i++)
+     {
+         for(j=0;j<n;j++)
+         {
+             graphFile>>*(MYadjMat+i*n+j);
+         }
+     }
+     graphFile.close();
+     for(i=0;i<n;i++)
+     {
+         for(j=0;j<n;j++)
+         {
+            g.setEdge(i,j,*(MYadjMat+i*n+j));
+         }
+     }
+    return g;
 }
 
 int main()
@@ -102,22 +135,34 @@ int main()
     cin>>n0;
     graph g(n0);
 // ------------------------------
-    createDefaultGraph(g);
-//    createGraph(g);
+//  g = createDefaultGraph(g);
+//  g = createGraph(g);
+  g = createGraphFromFile("new_input.txt",g,n0);
+//    g = createGraphFromFile("new_inputDefault.txt",g,n0);
+    g.findMaxCost();
+//    cout<<"\n\n\n======== Max cost: "<<g.getMaxCost();
+
+     for(int i=0;i<n0;i++)
+     {
+         for(int j=0;j<n0;j++)
+         {
+             if(g.getEdge(i,j) == 0 || g.getEdge(i,j)== -1)
+                g.setEdge(i,j,g.getMaxCost()+1);
+         }
+     }
+//    cout<<"\ninfinity cost: "<<g.getInfCost();
 // ------------------------------
     displayGraph(g);
-//    auto start = high_resolution_clock::now();
-    start_t = clock();
+    auto start = high_resolution_clock::now();
+//    start_t = clock();
     g = prims(g);
 
-    end_t = clock();
-//    auto stop = high_resolution_clock::now();
-//    auto duration = duration_cast<milliseconds>(stop - start);
-//    cout << "Time taken by function: "<< duration.count() << " milliseconds" << endl;
-    total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC*1000;
-    cout<<"Prim's algorithm MST (total cost: "<<g.mstCost<<"; runtime: "<<total_t<<"ms)\n";
+//    end_t = clock();
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<nanoseconds>(stop - start);
+//    cout << "Time taken by function: "<< duration.count() << " nanoseconds" << endl;
+//    total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC*1000;
+    cout<<"Prim's algorithm MST (total cost: "<<g.mstCost<<"; runtime: "<<duration.count()<<"ns)\n";
     g.displayMST();
-
-
     return 0;
 }

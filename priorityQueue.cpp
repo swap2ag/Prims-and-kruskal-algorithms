@@ -1,12 +1,14 @@
 #include"priorityQueue.h"
-
-void makeNull()
+#include"PQ_entry.h"
+void priority_queue::makeNull()
 {
     last = 0;
 }
-void insertInPQ(processtype x)
+void priority_queue::insertInPQ(PQ_entry x)
 {
     int i;
-    processtype temp;
-    if (last>=maxsize)
+    PQ_entry temp;
+    if (last>=MAXSIZE)
+    {
+    }
 }

@@ -23,12 +23,13 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="PQ_entry.cpp" />
+		<Unit filename="PQ_entry.h" />
 		<Unit filename="graph.cpp" />
 		<Unit filename="graph.h" />
 		<Unit filename="kruskal.cpp" />
 		<Unit filename="kruskal.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="pascal_priority_queue.cpp" />
 		<Unit filename="prims.cpp" />
 		<Unit filename="prims.h" />
 		<Unit filename="priorityQueue.cpp" />

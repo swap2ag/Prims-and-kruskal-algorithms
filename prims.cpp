@@ -3,6 +3,7 @@
 #include"prims.h"
 
 using namespace std;
+
 void dispArrays(int *lowcost,int *closest,int n)
 {
     int i;
@@ -14,6 +15,7 @@ void dispArrays(int *lowcost,int *closest,int n)
         cout<<*(lowcost+i)<<" ";
     cout<<endl;
 }
+
 graph prims(graph g)
 {
     int i,j,k,minimum;
@@ -21,7 +23,7 @@ graph prims(graph g)
     int n = g.getNumNodes();
     int* lowcost = new int [n];
     int *closest = new int[n];
-    g.mst = new int[3*(n-1)];
+    g.mst = new int[2*(n-1)];
 
     *closest = 0;   // since it is of no use
     *lowcost = 0;   // since it is of no use
@@ -30,11 +32,11 @@ graph prims(graph g)
         *(lowcost+i) = g.getEdge(i,0);
         *(closest+i) = 0;
     }
-    dispArrays(lowcost,closest,n);
-    cout<<"\nPrim's Algorithm MST: \n";
+//    dispArrays(lowcost,closest,n);
     for (i=1;i<n;i++)
     {
-        minimum = *(lowcost+i);
+        minimum = *(lowcost+1);
+//        cout<<"\nValue of minimum initially: "<<minimum;
         k = 1;
         for(j=2;j<n;j++)
         {
@@ -42,24 +44,31 @@ graph prims(graph g)
             {
                 minimum = *(lowcost+j);
                 k = j;
+//                cout<<"\nNew minimum at "<<k<<": "<<minimum<<"\n";
             }
+//            else
+//                cout<<"Same old minimum at "<<k<<": "<<minimum<<"\n";
         }
+//        cout<<"Minimum after for loop: "<<minimum<<"\n";
         *(g.mst+index) = k;
         *(g.mst+index+1) = *(closest+k);
-        *(g.mst+index+2) = g.getEdge(k,closest[k]);
-        index = index+3;
+        index = index+2;
 //        cout<<k<<" "<<*(closest+k)<<endl;
+
         g.mstCost = g.mstCost + g.getEdge(k,closest[k]);
-        *(lowcost+k) = INF_COST;
+        *(lowcost+k) = g.getInfCost();
+//        dispArrays(lowcost,closest,n);
         for(j=1;j<n;j++)
         {
-            if(g.getEdge(k,j)<*(lowcost+j) && (lowcost[j]<INF_COST))
+            if(g.getEdge(k,j)<*(lowcost+j) && (lowcost[j]<g.getInfCost()))
                {
                    *(lowcost+j) = g.getEdge(k,j);
                    *(closest+j) = k;
+//                   cout<<"\ninside if: ";
+//                   dispArrays(lowcost,closest,n);
                }
         }
     }
-    dispArrays(lowcost,closest,n);
+//    dispArrays(lowcost,closest,n);
     return g;
 }

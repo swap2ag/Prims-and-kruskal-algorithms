@@ -1,21 +1,19 @@
 #ifndef PRIORITYQUEUE_INCLUDE
 #define PRIORITYQUEUE
-#define maxsize 200\
+#include"PQ_entry.h"
+#define MAXSIZE 200
 // we will use partially ordered tree implementation of priority queue as DELETEMIN() AND INSERT() are O(log(n)) in it.
 class priority_queue
 {
-    processtype *contents = new processtype[maxsize];
+    PQ_entry *contents;
     int last;
 public:
-    void makeNull()
+    priority_queue()
     {
-        last = 0;
+        contents = new PQ_entry[MAXSIZE];
     }
+  void makeNull();
+  void insertInPQ(PQ_entry x);
 };
 
-
-
-
-
-class
 #endif // PRIORITYQUEUE_INCLUDE
