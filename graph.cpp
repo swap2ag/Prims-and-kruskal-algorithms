@@ -9,7 +9,7 @@ graph::graph(int n)
     {
         for(int j=0;j<n;j++)
         {
-            *(adjMat+i*n+j) = 65534;
+            *(adjMat+i*n+j) = -1;
         }
     }
     numNodes = n;

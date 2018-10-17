@@ -64,7 +64,7 @@ graph createGraphManually(graph g)
     }
     return g;
 }
-/*
+
 graph createDefaultGraph(graph g)
 {
     g.setEdge(0,1,6);
@@ -94,7 +94,7 @@ graph createDefaultGraph(graph g)
 
     return g;
 }
-*/
+
 //---UNDER DEVELOPMENT---- need to enter
 graph createGraphFromFile(char st[],graph g,int n)
 {
@@ -128,7 +128,7 @@ graph createGraphFromFile(char st[],graph g,int n)
 int main()
 {
     int n0;
-    clock_t start_t, end_t,total_t;
+//    clock_t start_t, end_t,total_t;
 
 
     cout <<"Enter number of vertices in the graph: ";
@@ -136,7 +136,7 @@ int main()
     graph g(n0);
 // ------------------------------
 //  g = createDefaultGraph(g);
-//  g = createGraph(g);
+//  g = createGraphManually(g);
   g = createGraphFromFile("new_input.txt",g,n0);
 //    g = createGraphFromFile("new_inputDefault.txt",g,n0);
     g.findMaxCost();
