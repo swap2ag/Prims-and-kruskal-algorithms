@@ -2,13 +2,26 @@
 #include<fstream>
 //#include<time.h>
 #include <chrono>
+#include<windows.h>
 
 #include "graph.h"
 #include"prims.h"
 using namespace std;
 using namespace std::chrono;
-
-
+inline long long PerformanceCounter() noexcept
+{
+    LARGE_INTEGER li;
+    ::QueryPerformanceCounter(&li);
+    return li.QuadPart;
+}
+// -----------------------------------------
+inline long long PerformanceFrequency() noexcept
+{
+    LARGE_INTEGER li;
+    ::QueryPerformanceFrequency(&li);
+    return li.QuadPart;
+}
+// -------------------------------------------
 int getVertex()
 {
     int vertex;
@@ -137,8 +150,8 @@ int main()
 // ------------------------------
 //  g = createDefaultGraph(g);
 //  g = createGraphManually(g);
-  g = createGraphFromFile("new_input.txt",g,n0);
-//    g = createGraphFromFile("new_inputDefault.txt",g,n0);
+//  g = createGraphFromFile("new_input.txt",g,n0);
+    g = createGraphFromFile("new_inputDefault.txt",g,n0);
     g.findMaxCost();
 //    cout<<"\n\n\n======== Max cost: "<<g.getMaxCost();
 
@@ -153,16 +166,24 @@ int main()
 //    cout<<"\ninfinity cost: "<<g.getInfCost();
 // ------------------------------
     displayGraph(g);
-    auto start = high_resolution_clock::now();
-//    start_t = clock();
-    g = prims(g);
+    // ---------------
+        // Record start time
+        long long start = PerformanceCounter();
 
+//    auto start = high_resolution_clock::now();
+//    start_t = clock();
+        g = prims(g);
+        long long finish = PerformanceCounter();
+        long long frequency = PerformanceFrequency();
+        double elapsedMilliseconds = ((finish - start) * 1000000.0) / frequency;
 //    end_t = clock();
-    auto stop = high_resolution_clock::now();
-    auto duration = duration_cast<nanoseconds>(stop - start);
+//    auto stop = high_resolution_clock::now();
+//    auto duration = duration_cast<nanoseconds>(stop - start);
 //    cout << "Time taken by function: "<< duration.count() << " nanoseconds" << endl;
 //    total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC*1000;
-    cout<<"Prim's algorithm MST (total cost: "<<g.mstCost<<"; runtime: "<<duration.count()<<"ns)\n";
+//    cout<<"Prim's algorithm MST (total cost: "<<g.mstCost<<"; runtime: "<<duration.count()<<"ns)\n";
+      cout<<"Prim's algorithm MST (total cost: "<<g.mstCost<<"; runtime: "<<elapsedMilliseconds<<"ns)\n";
+
     g.displayMST();
     return 0;
 }
