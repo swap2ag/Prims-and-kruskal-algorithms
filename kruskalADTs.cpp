@@ -194,7 +194,7 @@ void mfset::mergeSets(int setAIndex, int setBIndex)
     }
 }
 
-void mfset::findSet(int x)
+int mfset::findSet(int x)
 {
     return elements[x].getSETname();
 }

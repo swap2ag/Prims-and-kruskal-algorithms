@@ -66,7 +66,7 @@ public:
     mfset(int numSets, int numElements);
     void initial(int setName, int x);
     void mergeSets(int setAIndex, int setBIndex);
-    void mfset::findSet(int x);
+    int findSet(int x); // returns the set to which x belongs
 };
 
 #endif // KRUSKALADTS_INCLUDE

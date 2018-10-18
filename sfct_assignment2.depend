@@ -54,10 +54,10 @@
 1539814278 f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\priorityqueue.h
 	"graph.h"
 
-1539877576 f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\kruskaladts.h
+1539879106 f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\kruskaladts.h
 	"graph.h"
 
-1539877341 source:f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\kruskaladts.cpp
+1539879088 source:f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\kruskaladts.cpp
 	"kruskalADTs.h"
 	"graph.h"
 	"PQ_entry.h"
