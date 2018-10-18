@@ -1,5 +1,5 @@
 #include"kruskal.h"
-#include"priorityQueue.h"
+#include"kruskalADTs.h"
 #include"graph.h"
 
 graph kruskal(graph g)
