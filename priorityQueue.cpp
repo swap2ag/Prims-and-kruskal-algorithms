@@ -34,6 +34,7 @@ priorityQueue::priority_queue(graph g)
     numNodes = g.getNumNodes();
     contents = new PQ_entry[numNodes];
     // need to add entries in this from the graph.
+
 }
 void priorityQueue::makeNull()
 {

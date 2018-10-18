@@ -10,16 +10,16 @@ using namespace std;
 //using namespace std::chrono;
 long long PerformanceCounter()
 {
-    LARGE_INTEGER li;
-    ::QueryPerformanceCounter(&li);
-    return li.QuadPart;
+    LARGE_INTEGER timeCtr;
+    ::QueryPerformanceCounter(&timeCtr);
+    return timeCtr.QuadPart;
 }
 // -----------------------------------------
 long long PerformanceFrequency()
 {
-    LARGE_INTEGER li;
-    ::QueryPerformanceFrequency(&li);
-    return li.QuadPart;
+    LARGE_INTEGER timeCtr;
+    ::QueryPerformanceFrequency(&timeCtr);
+    return timeCtr.QuadPart;
 }
 // -------------------------------------------
 int getVertex()
@@ -141,6 +141,7 @@ graph createGraphFromFile(char st[],graph g,int n)
 int main()
 {
     int n0;
+    char filename[100];
 //    clock_t start_t, end_t,total_t;
 
 
@@ -150,19 +151,21 @@ int main()
 // ------------------------------
 //  g = createDefaultGraph(g);
 //  g = createGraphManually(g);
-  g = createGraphFromFile("new_input.txt",g,n0);
+    cout<<"Enter file to read the graph from: ";
+    cin>>filename;
+    g = createGraphFromFile(filename,g,n0);
 //    g = createGraphFromFile("new_inputDefault.txt",g,n0);
     g.findMaxCost();
 //    cout<<"\n\n\n======== Max cost: "<<g.getMaxCost();
 
-     for(int i=0;i<n0;i++)
-     {
-         for(int j=0;j<n0;j++)
-         {
-             if(g.getEdge(i,j) == 0 || g.getEdge(i,j)== -1)
-                g.setEdge(i,j,g.getMaxCost()+1);
-         }
-     }
+    for(int i=0;i<n0;i++)
+    {
+        for(int j=0;j<n0;j++)
+        {
+            if(g.getEdge(i,j) == 0 || g.getEdge(i,j)== -1)
+            g.setEdge(i,j,g.getMaxCost()+1);
+        }
+    }
 //    cout<<"\ninfinity cost: "<<g.getInfCost();
 // ------------------------------
     displayGraph(g);
@@ -175,15 +178,16 @@ int main()
         g = prims(g);
         long long finish = PerformanceCounter();
         long long frequency = PerformanceFrequency();
-        double elapsedMilliseconds = ((finish - start) * 1000000.0) / frequency;
+        double timeElapsed = ((finish - start) * 1000000.0) / frequency;
 //    end_t = clock();
 //    auto stop = high_resolution_clock::now();
 //    auto duration = duration_cast<nanoseconds>(stop - start);
 //    cout << "Time taken by function: "<< duration.count() << " nanoseconds" << endl;
 //    total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC*1000;
 //    cout<<"Prim's algorithm MST (total cost: "<<g.mstCost<<"; runtime: "<<duration.count()<<"ns)\n";
-      cout<<"Prim's algorithm MST (total cost: "<<g.mstCost<<"; runtime: "<<elapsedMilliseconds<<"ns)\n";
+      cout<<"Prim's algorithm MST (total cost: "<<g.mstCost<<"; runtime: "<<timeElapsed<<"ns)\n";
 
     g.displayMST();
+
     return 0;
 }
