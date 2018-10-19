@@ -2,10 +2,10 @@
 1539440316 source:f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\graphmine.cpp
 	<iostream>
 
-1539986531 source:f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\main.cpp
+1539989232 source:f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\main.cpp
 	<iostream>
 	<fstream>
-	<windows.h>
+	<chrono>
 	"graph.h"
 	"prims.h"
 	"kruskal.h"
