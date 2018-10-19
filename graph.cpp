@@ -16,6 +16,7 @@ graph::graph(int n)
     infCost = 0;
     mstCost = 0;
     maxCost = 0;
+    mst = new int[numNodes];
 }										// Number of nodes have to be passed and and a graph with no edges will be constructed by this
 //=====Getters======
 int graph::getNumNodes()
@@ -57,7 +58,6 @@ void graph::displayMST()
     {
         cout<<"("<<*(mst+i)+1<<","<<*(mst+i+1)+1<<")\n";
     }
-    cout<<"\b \b";
 }
 int graph::getInfCost()
 {
@@ -67,3 +67,4 @@ int graph::getMaxCost()
 {
     return maxCost;
 }
+

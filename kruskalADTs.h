@@ -1,6 +1,8 @@
 #ifndef KRUSKALADTS_INCLUDE
 #define KRUSKALADTS
 #include"graph.h"
+#include<iostream>  // for displaying MFSET
+using namespace std;
 //#define MAXSIZE 200
 // we will use partially ordered tree implementation of priority queue as DELETEMIN() AND INSERT() are O(log(n)) in it.
 
@@ -11,6 +13,8 @@ class PQ_entry
     int v2;
     int cost_priority;
 public:
+    PQ_entry();
+    PQ_entry(int v1, int v2, int cost_priority);
     // getters
     int getPriority();
     int getV1();
@@ -29,7 +33,7 @@ public:
     priorityQueue(graph g);
     void makeNull();
     void insertInPQ(PQ_entry x);
-    PQ_entry* deleteMin();
+    PQ_entry deleteMin();
 };
 
 // MFSET ADT
@@ -61,12 +65,27 @@ public:
 class mfset
 {
 public:
-    sets* setHeaders;
-    setElement* elements;
+    sets setHeaders[100];
+    setElement elements[100];
     mfset(int numSets, int numElements);
     void initial(int setName, int x);
     void mergeSets(int setAIndex, int setBIndex);
     int findSet(int x); // returns the set to which x belongs
+    void displayMFSET(int numElements)
+    {
+        cout<<"\ndisplaying all elements: \n";
+    for(int i=0;i<numElements;i++)
+    {
+        cout<<"Setname of element["<<i<<"]: "<<elements[i].getSETname()<<" Next Element index: "<<elements[i].getNextElementIndex()<<"\n";
+
+    }
+    cout<<"displaying various elements of each set: ";
+    for(int i=0;i<numElements;i++)
+    {
+        cout<<"Set ["<<i<<"]: "<<"\n first element index: "<<setHeaders[i].getFirstElementIndex()<<" and numof Elements: "<<setHeaders[i].getNumElements()<<"\n";
+    }
+    cout<<"\ndisp proc() over\n========================================================\n";
+    }
 };
 
 #endif // KRUSKALADTS_INCLUDE

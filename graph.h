@@ -20,7 +20,6 @@ class graph
         void setEdge(int i,int j, int val);
         void findMaxCost();
         void displayMST();
-
 };
 
 #endif // GRAPH_INCLUDE

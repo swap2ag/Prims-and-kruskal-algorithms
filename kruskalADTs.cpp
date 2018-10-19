@@ -2,9 +2,19 @@
 #include"graph.h"
 #include"PQ_entry.h"
 #include<iostream>
-
+using namespace std;
 // function definitions for class PQ_entry
 // ------------------------------------------
+PQ_entry::PQ_entry()
+{
+    return;
+}
+PQ_entry::PQ_entry(int ver1, int ver2, int cost)
+{
+    v1 = ver1;
+    v2 = ver2;
+    cost_priority = cost;
+}
 int PQ_entry::getPriority()
 {
     return cost_priority;
@@ -31,8 +41,8 @@ void PQ_entry::setVertices(int x1,int x2)
 
 priorityQueue::priorityQueue(graph g)
 {
-    numNodes = g.getNumNodes();
-    contents = new PQ_entry[numNodes];
+
+    contents = new PQ_entry[g.getNumNodes()+1];
     // need to add entries in this from the graph.
     return;
 }
@@ -44,6 +54,12 @@ void priorityQueue::insertInPQ(PQ_entry x)
 {
     int i;
     PQ_entry temp;
+//    cout<<"last is: "<<last<<endl;
+//    cout<<"Contents of PQ after entering insertinPQ()-------->>>>\n";
+//    for(int i=1;i<=last;i++)
+//    {
+//        cout<<"contents of "<<i<<"th element: "<<"v1: "<<contents[i].getV1()<<" v2: "<<contents[i].getV2()<<" cost: "<<contents[i].getPriority()<<"\n";
+//    }
     if (last>=numNodes)
     {
         std::cout<<"Priority queue is full!!!";
@@ -52,50 +68,93 @@ void priorityQueue::insertInPQ(PQ_entry x)
     else
     {
         last = last+1;
-        *(contents+last) = x; // add entry at the last
+        contents[last].setPriority(x.getPriority()); // add entry at the last
+        contents[last].setVertices(x.getV1(),x.getV2());
         i = last;
-        while((i>0) && ((contents[i].getPriority()) < (contents[i/2].getPriority())) )     // till added child is greater than parent exchange
+        while((i>1) && ((contents[i].getPriority()) < (contents[i/2].getPriority())) )     // till added child is greater than parent exchange
         {
-            temp = *(contents+i);
-            *(contents+i) = *(contents+(i/2));
-            *(contents+(i/2)) = temp;
+            temp.setPriority(contents[i].getPriority());
+            temp.setVertices(contents[i].getV1(),contents[i].getV2());
+
+            contents[i].setPriority(contents[i/2].getPriority());
+            contents[i].setVertices(contents[i/2].getV1(),contents[i/2].getV2());
+
+            contents[i/2].setPriority(temp.getPriority());
+            contents[i/2].setVertices(temp.getV1(),temp.getV2());
+            i = i/2;
         }
     }
 }
-PQ_entry* priorityQueue::deleteMin()
+PQ_entry priorityQueue::deleteMin()
 {
     int i,j;
     PQ_entry tempEntry;
-    PQ_entry *minimumEntry = NULL;
+    PQ_entry minimumEntry;
+    cout<<"\ndeleteMIn begins\n";
+    cout<<"last is: "<<last<<endl;
     if(last == 0)
         std::cout<<"Priority queue is empty";
     else
     {
-        minimumEntry = new PQ_entry;
-        minimumEntry = contents;    // points to the base of contents so that every time after pushing down all, minimum element is returned.
-        contents[0] = contents[last];// place last node to the first node
+        cout<<"\nEntered else\n";
+        minimumEntry.setPriority(contents[1].getPriority());
+        minimumEntry.setVertices(contents[1].getV1(),contents[1].getV2());
+//            minimumEntry = contents;    // points to the base of contents so that every time after pushing down all, minimum element is returned.
+        cout<<"\nminentry pointing to first entry in contents\n";
+      cout<<"contents of minimum entry: "<<"v1: "<<minimumEntry.getV1()<<" v2: "<<minimumEntry.getV2()<<" cost: "<<minimumEntry.getPriority()<<"\n";
+//  cout<<"contents of last: "<<"v1: "<<contents[last].getV1()<<" v2: "<<contents[last].getV2()<<" cost: "<<contents[last].getPriority()<<"\n";
+        cout<<"initially contents of pQ: \n";
+        for(i=1;i<=last;i++)
+        {
+            cout<<"contents of "<<i<<"th element: "<<"v1: "<<contents[i].getV1()<<" v2: "<<contents[i].getV2()<<" cost: "<<contents[i].getPriority()<<"\n";
+        }
+        contents[1].setPriority(contents[last].getPriority());
+        contents[1].setVertices(contents[last].getV1(),contents[last].getV2());
+
+
+        // place last node to the first node
+//        cout<<"contents of first ele: "<<contents[1]<<endl;
         last = last-1;
-        i = 0;  // i is the current position of the old last element
+         cout<<"later on: ";
+        for(i=1;i<=last;i++)
+        {
+            cout<<"contents of "<<i<<"th element: "<<"v1: "<<contents[i].getV1()<<" v2: "<<contents[i].getV2()<<" cost: "<<contents[i].getPriority()<<"\n";
+        }
+        i = 1;  // i is the current position of the old last element
         while (i<=(last/2))
         {
             if( (contents[2*i].getPriority() < contents[2*i+1].getPriority()) || (2*i == last) )
             {
                 j = 2*i;
+                cout<<"\nj: "<<j<<" replacing with left element\n";
             }
             else
+            {
                 j = 2*i+1;
+                cout<<"\nj: "<<j<<"replacing with right element\n";
+            }
             if (contents[i].getPriority()>contents[j].getPriority())    // if the parent node is greater than smaller of two child nodes or if it is the last node
             {
-                tempEntry = contents[i];
-                contents[i] = contents[j];
-                contents[j] = tempEntry;
+                cout<<"\nmoving entry to be deleted upwards\n";
+                tempEntry.setPriority(contents[i].getPriority());
+                tempEntry.setVertices(contents[i].getV1(),contents[i].getV2());
+
+                contents[i].setPriority(contents[j].getPriority());
+                contents[i].setVertices(contents[j].getV1(),contents[j].getV2());
+
+                contents[j].setPriority(tempEntry.getPriority());
+                contents[j].setVertices(tempEntry.getV1(),tempEntry.getV2());
                 i = j;
             }
             else
-                return minimumEntry;
+                {
+                    cout<<"\nminimum entry's v1: "<<minimumEntry.getV1()<<"\n minimum entry's v2: "<<minimumEntry.getV2()<<"\n";
+                    return minimumEntry;
+                }
         }
 
     }
+    cout<<"\nminimum entry's v1: "<<minimumEntry.getV1()<<"\n minimum entry's v2: "<<minimumEntry.getV2()<<"\n";
     return minimumEntry;
 }
 
@@ -141,8 +200,17 @@ void setElement::setNextElementIndex(int index)
 mfset::mfset(int numSets, int numElements)
 {
     // created
-    setHeaders = new sets[numSets];
-    elements = new setElement[numElements];
+//    setHeaders = new sets[numSets];
+//    elements = new setElement[numElements];
+//    for (int i=0;i<numElements;i++)
+//    {
+//        elements[i].setSETname(i);
+//        elements[i].setNextElementIndex(-1);
+//        setHeaders[i].setFirstElementIndex(i);
+//        setHeaders[i].setNumElements(1);
+//    }
+//    cout<<"displaying MFSET after initialising object of MFSET";
+//    displayMFSET(6);
 }
 void mfset::initial(int setName, int x)
 {
@@ -150,48 +218,67 @@ void mfset::initial(int setName, int x)
     elements[x].setNextElementIndex(-1);    // since in array 0 is a valid, so using -1
     setHeaders[setName].setNumElements(1);
     setHeaders[setName].setFirstElementIndex(x);
+//    cout<<"\nAfter initialising mfset is: ";
+//    displayMFSET(6);
+//    cout<<"\n.....exiting initial()...\n";
 }
 
-void mfset::mergeSets(int setAIndex, int setBIndex)
+void mfset::mergeSets(int setA, int setB)
 {
-    int i = 0;
-    if (setHeaders[setAIndex].getNumElements() > setHeaders[setBIndex].getNumElements())
+    cout<<"\nMerge starts \n";
+//    cout<<"Entered merge: \n with setA: "<<setA<<" and SetB: "<<setB<<"\nand index of first element of B: ";
+
+//    cout<<setHeaders[setB].getFirstElementIndex()<<endl<<"-------------------"<<endl;
+    int i;
+    if (setHeaders[setA].getNumElements() > setHeaders[setB].getNumElements())
     {
+//        cout<<"\nA is larger set, so entered if of merge() amd will merge B into A.\n";
         // A is lager set, so merge B into A
-        i = setHeaders[setBIndex].getFirstElementIndex();
+        i = setHeaders[setB].getFirstElementIndex();
+//        cout<<"\nfirst element index of B: "<<i<<endl;
         while(elements[i].getNextElementIndex() != -1)
         {
-            elements[i].setSETname(setAIndex);
+            elements[i].setSETname(setA);
+//            displayMFSET(6);
             i = elements[i].getNextElementIndex();
         }
         // append A tp end of B and call the result A
-        elements[i].setSETname(setAIndex);
-        elements[i].setNextElementIndex(setHeaders[setAIndex].getFirstElementIndex());
-        setHeaders[setAIndex].setFirstElementIndex(setHeaders[setBIndex].getFirstElementIndex());
-        setHeaders[setAIndex].setNumElements(setHeaders[setAIndex].getNumElements()+setHeaders[setBIndex].getNumElements());
+        elements[i].setSETname(setA);
+        elements[i].setNextElementIndex(setHeaders[setA].getFirstElementIndex());
+
+
+        setHeaders[setA].setFirstElementIndex(setHeaders[setB].getFirstElementIndex());
+        setHeaders[setA].setNumElements(setHeaders[setA].getNumElements()+setHeaders[setB].getNumElements());
+
         // nullifying setB
-        setHeaders[setBIndex].setNumElements(0);
-        setHeaders[setBIndex].setFirstElementIndex(-1);
+        setHeaders[setB].setNumElements(0);
+        setHeaders[setB].setFirstElementIndex(-1);
     }
     else
     {
         // B is lager set, so merge A into B
-        i = setHeaders[setAIndex].getFirstElementIndex();
+        i = setHeaders[setA].getFirstElementIndex();
+//        cout<<"\nfirst element index of A: "<<i<<endl;
         while(elements[i].getNextElementIndex() != -1)
         {
-            elements[i].setSETname(setBIndex);
+            elements[i].setSETname(setB);
+//            displayMFSET(6);
             i = elements[i].getNextElementIndex();
         }
         // append A tp end of B and call the result B
-        elements[i].setSETname(setBIndex);
-        elements[i].setNextElementIndex(setHeaders[setBIndex].getFirstElementIndex());
+        elements[i].setSETname(setB);
+        elements[i].setNextElementIndex(setHeaders[setB].getFirstElementIndex());
 
-        setHeaders[setBIndex].setFirstElementIndex(setHeaders[setAIndex].getFirstElementIndex());   // set firstelement index of B as that of B since we are appending at the front
-        setHeaders[setBIndex].setNumElements(setHeaders[setBIndex].getNumElements()+setHeaders[setAIndex].getNumElements());
+        setHeaders[setB].setFirstElementIndex(setHeaders[setA].getFirstElementIndex());   // set firstelement index of B as that of B since we are appending at the front
+        setHeaders[setB].setNumElements(setHeaders[setB].getNumElements()+setHeaders[setA].getNumElements());
         // nullifying setB
-        setHeaders[setAIndex].setNumElements(0);
-        setHeaders[setAIndex].setFirstElementIndex(-1);
+        setHeaders[setA].setNumElements(0);
+        setHeaders[setA].setFirstElementIndex(-1);
     }
+//    cout<<endl;
+//    cout<<"Displaying MFSET in the merge function\n";
+//    displayMFSET(6);
+    cout<<"\n MERGE ENDS!!!";
 }
 
 int mfset::findSet(int x)
