@@ -90,24 +90,24 @@ PQ_entry priorityQueue::deleteMin()
     int i,j;
     PQ_entry tempEntry;
     PQ_entry minimumEntry;
-    cout<<"\ndeleteMIn begins\n";
-    cout<<"last is: "<<last<<endl;
+//    cout<<"\ndeleteMIn begins\n";
+//    cout<<"last is: "<<last<<endl;
     if(last == 0)
         std::cout<<"Priority queue is empty";
     else
     {
-        cout<<"\nEntered else\n";
+//        cout<<"\nEntered else\n";
         minimumEntry.setPriority(contents[1].getPriority());
         minimumEntry.setVertices(contents[1].getV1(),contents[1].getV2());
 //            minimumEntry = contents;    // points to the base of contents so that every time after pushing down all, minimum element is returned.
-        cout<<"\nminentry pointing to first entry in contents\n";
-      cout<<"contents of minimum entry: "<<"v1: "<<minimumEntry.getV1()<<" v2: "<<minimumEntry.getV2()<<" cost: "<<minimumEntry.getPriority()<<"\n";
+//        cout<<"\nminentry pointing to first entry in contents\n";
+//      cout<<"contents of minimum entry: "<<"v1: "<<minimumEntry.getV1()<<" v2: "<<minimumEntry.getV2()<<" cost: "<<minimumEntry.getPriority()<<"\n";
 //  cout<<"contents of last: "<<"v1: "<<contents[last].getV1()<<" v2: "<<contents[last].getV2()<<" cost: "<<contents[last].getPriority()<<"\n";
-        cout<<"initially contents of pQ: \n";
-        for(i=1;i<=last;i++)
-        {
-            cout<<"contents of "<<i<<"th element: "<<"v1: "<<contents[i].getV1()<<" v2: "<<contents[i].getV2()<<" cost: "<<contents[i].getPriority()<<"\n";
-        }
+//        cout<<"initially contents of pQ: \n";
+//        for(i=1;i<=last;i++)
+//        {
+//            cout<<"contents of "<<i<<"th element: "<<"v1: "<<contents[i].getV1()<<" v2: "<<contents[i].getV2()<<" cost: "<<contents[i].getPriority()<<"\n";
+//        }
         contents[1].setPriority(contents[last].getPriority());
         contents[1].setVertices(contents[last].getV1(),contents[last].getV2());
 
@@ -115,27 +115,27 @@ PQ_entry priorityQueue::deleteMin()
         // place last node to the first node
 //        cout<<"contents of first ele: "<<contents[1]<<endl;
         last = last-1;
-         cout<<"later on: ";
-        for(i=1;i<=last;i++)
-        {
-            cout<<"contents of "<<i<<"th element: "<<"v1: "<<contents[i].getV1()<<" v2: "<<contents[i].getV2()<<" cost: "<<contents[i].getPriority()<<"\n";
-        }
+//         cout<<"later on: ";
+//        for(i=1;i<=last;i++)
+//        {
+//            cout<<"contents of "<<i<<"th element: "<<"v1: "<<contents[i].getV1()<<" v2: "<<contents[i].getV2()<<" cost: "<<contents[i].getPriority()<<"\n";
+//        }
         i = 1;  // i is the current position of the old last element
         while (i<=(last/2))
         {
             if( (contents[2*i].getPriority() < contents[2*i+1].getPriority()) || (2*i == last) )
             {
                 j = 2*i;
-                cout<<"\nj: "<<j<<" replacing with left element\n";
+//                cout<<"\nj: "<<j<<" replacing with left element\n";
             }
             else
             {
                 j = 2*i+1;
-                cout<<"\nj: "<<j<<"replacing with right element\n";
+//                cout<<"\nj: "<<j<<"replacing with right element\n";
             }
             if (contents[i].getPriority()>contents[j].getPriority())    // if the parent node is greater than smaller of two child nodes or if it is the last node
             {
-                cout<<"\nmoving entry to be deleted upwards\n";
+//                cout<<"\nmoving entry to be deleted upwards\n";
                 tempEntry.setPriority(contents[i].getPriority());
                 tempEntry.setVertices(contents[i].getV1(),contents[i].getV2());
 
@@ -148,13 +148,13 @@ PQ_entry priorityQueue::deleteMin()
             }
             else
                 {
-                    cout<<"\nminimum entry's v1: "<<minimumEntry.getV1()<<"\n minimum entry's v2: "<<minimumEntry.getV2()<<"\n";
+//                    cout<<"\nminimum entry's v1: "<<minimumEntry.getV1()<<"\n minimum entry's v2: "<<minimumEntry.getV2()<<"\n";
                     return minimumEntry;
                 }
         }
 
     }
-    cout<<"\nminimum entry's v1: "<<minimumEntry.getV1()<<"\n minimum entry's v2: "<<minimumEntry.getV2()<<"\n";
+//    cout<<"\nminimum entry's v1: "<<minimumEntry.getV1()<<"\n minimum entry's v2: "<<minimumEntry.getV2()<<"\n";
     return minimumEntry;
 }
 
@@ -225,7 +225,7 @@ void mfset::initial(int setName, int x)
 
 void mfset::mergeSets(int setA, int setB)
 {
-    cout<<"\nMerge starts \n";
+//    cout<<"\nMerge starts \n";
 //    cout<<"Entered merge: \n with setA: "<<setA<<" and SetB: "<<setB<<"\nand index of first element of B: ";
 
 //    cout<<setHeaders[setB].getFirstElementIndex()<<endl<<"-------------------"<<endl;
@@ -278,7 +278,7 @@ void mfset::mergeSets(int setA, int setB)
 //    cout<<endl;
 //    cout<<"Displaying MFSET in the merge function\n";
 //    displayMFSET(6);
-    cout<<"\n MERGE ENDS!!!";
+//    cout<<"\n MERGE ENDS!!!";
 }
 
 int mfset::findSet(int x)

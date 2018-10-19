@@ -82,7 +82,7 @@ public:
     cout<<"displaying various elements of each set: ";
     for(int i=0;i<numElements;i++)
     {
-        cout<<"Set ["<<i<<"]: "<<"\n first element index: "<<setHeaders[i].getFirstElementIndex()<<" and numof Elements: "<<setHeaders[i].getNumElements()<<"\n";
+        cout<<"Set ["<<i<<"]: "<<" first element index: "<<setHeaders[i].getFirstElementIndex()<<" and numof Elements: "<<setHeaders[i].getNumElements()<<"\n";
     }
     cout<<"\ndisp proc() over\n========================================================\n";
     }

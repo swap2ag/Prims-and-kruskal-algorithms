@@ -23,91 +23,91 @@ long long PerformanceFrequency()
     return timeCtr.QuadPart;
 }
 // -------------------------------------------
-int getVertex()
-{
-    int vertex;
-    cin>>vertex;
-    return vertex;
-}
-void displayGraph(graph g)
-{
-    cout<<endl;
-    int n = g.getNumNodes();
-    for (int i =0 ;i<n;i++)
-    {
-        for(int j=0;j<n;j++)
-            cout<<g.getEdge(i,j)<<" ";
-        cout<<"\n";
-    }
-}
-graph createGraphManually(graph g)
-{
-    int n0 = g.getNumNodes();
-    int srcVertex, destVertex,cost;
-
- while(1)
-    {
-        cout<<"Enter source vertex[0 to abort entering]: ";
-        srcVertex = getVertex();
-        if(srcVertex == 0)
-            break;
-        else if(srcVertex > n0 || srcVertex<0)
-            {
-                while(srcVertex>n0 || srcVertex<0)
-                {
-                    cout<<"Enter valid vertex [1 to "<<n0<<" ]\n";
-                    srcVertex = getVertex();
-                }
-            }
-            cout<<"Enter destination vertex[0 to abort entering]:";
-        destVertex = getVertex();
-        if(destVertex == 0)
-            break;
-        else if(destVertex > n0 || destVertex<0)
-            {
-                while(destVertex>n0 || destVertex<0)
-                {
-                    cout<<"Enter valid vertex [1 to "<<n0<<" ]\n";
-                    destVertex = getVertex();
-                }
-            }
-        cout<<"Enter the weight of edge between them[0 or -1 to represent no edge]: ";
-        cin>>cost;
-        g.setEdge(srcVertex-1,destVertex-1,cost);
-        cout<<endl;
-    }
-    return g;
-}
-
-graph createDefaultGraph(graph g)
-{
-    g.setEdge(0,1,6);
-    g.setEdge(0,2,1);
-    g.setEdge(0,3,5);
-
-    g.setEdge(1,0,6);
-    g.setEdge(1,2,5);
-    g.setEdge(1,4,3);
-
-    g.setEdge(2,0,1);
-    g.setEdge(2,1,5);
-    g.setEdge(2,3,5);
-    g.setEdge(2,4,6);
-    g.setEdge(2,5,4);
-
-    g.setEdge(3,0,5);
-    g.setEdge(3,2,5);
-    g.setEdge(3,5,2);
-
-    g.setEdge(4,1,3);
-    g.setEdge(4,2,6);
-    g.setEdge(4,5,6);
-    g.setEdge(5,2,4);
-    g.setEdge(5,3,2);
-    g.setEdge(5,4,6);
-
-    return g;
-}
+//int getVertex()
+//{
+//    int vertex;
+//    cin>>vertex;
+//    return vertex;
+////}
+//void displayGraph(graph g)
+//{
+//    cout<<endl;
+//    int n = g.getNumNodes();
+//    for (int i =0 ;i<n;i++)
+//    {
+//        for(int j=0;j<n;j++)
+//            cout<<g.getEdge(i,j)<<" ";
+//        cout<<"\n";
+//    }
+//}
+//graph createGraphManually(graph g)
+//{
+//    int n0 = g.getNumNodes();
+//    int srcVertex, destVertex,cost;
+//
+// while(1)
+//    {
+//        cout<<"Enter source vertex[0 to abort entering]: ";
+//        srcVertex = getVertex();
+//        if(srcVertex == 0)
+//            break;
+//        else if(srcVertex > n0 || srcVertex<0)
+//            {
+//                while(srcVertex>n0 || srcVertex<0)
+//                {
+//                    cout<<"Enter valid vertex [1 to "<<n0<<" ]\n";
+//                    srcVertex = getVertex();
+//                }
+//            }
+//            cout<<"Enter destination vertex[0 to abort entering]:";
+//        destVertex = getVertex();
+//        if(destVertex == 0)
+//            break;
+//        else if(destVertex > n0 || destVertex<0)
+//            {
+//                while(destVertex>n0 || destVertex<0)
+//                {
+//                    cout<<"Enter valid vertex [1 to "<<n0<<" ]\n";
+//                    destVertex = getVertex();
+//                }
+//            }
+//        cout<<"Enter the weight of edge between them[0 or -1 to represent no edge]: ";
+//        cin>>cost;
+//        g.setEdge(srcVertex-1,destVertex-1,cost);
+//        cout<<endl;
+//    }
+//    return g;
+//}
+//
+//graph createDefaultGraph(graph g)
+//{
+//    g.setEdge(0,1,6);
+//    g.setEdge(0,2,1);
+//    g.setEdge(0,3,5);
+//
+//    g.setEdge(1,0,6);
+//    g.setEdge(1,2,5);
+//    g.setEdge(1,4,3);
+//
+//    g.setEdge(2,0,1);
+//    g.setEdge(2,1,5);
+//    g.setEdge(2,3,5);
+//    g.setEdge(2,4,6);
+//    g.setEdge(2,5,4);
+//
+//    g.setEdge(3,0,5);
+//    g.setEdge(3,2,5);
+//    g.setEdge(3,5,2);
+//
+//    g.setEdge(4,1,3);
+//    g.setEdge(4,2,6);
+//    g.setEdge(4,5,6);
+//    g.setEdge(5,2,4);
+//    g.setEdge(5,3,2);
+//    g.setEdge(5,4,6);
+//
+//    return g;
+//}
 
 //---UNDER DEVELOPMENT---- need to enter
 graph createGraphFromFile(char st[],graph g,int n)
@@ -157,8 +157,8 @@ int main()
     cin>>filename;
     g = createGraphFromFile(filename,g,n0);
     gKruskal = createGraphFromFile(filename,gKruskal,n0);
-    cout<<"After reading from file: \n";
-    displayGraph(gKruskal);
+//    cout<<"After reading from file: \n";
+//    displayGraph(gKruskal);
 //    g = createGraphFromFile("new_inputDefault.txt",g,n0);
     g.findMaxCost();
 //    cout<<"\n\n\n======== Max cost: "<<g.getMaxCost();
@@ -173,12 +173,12 @@ int main()
     }
 //    cout<<"\ninfinity cost: "<<g.getInfCost();
 // ------------------------------
-    cout<<"g is: \n";
-    displayGraph(g);
-    cout<<"\ngKruskal is: \n";
-    displayGraph(gKruskal);
-// ---------------
-    // Record start time
+//    cout<<"g is: \n";
+//    displayGraph(g);
+//    cout<<"\ngKruskal is: \n";
+//    displayGraph(gKruskal);
+//// ---------------
+//    // Record start time
     long long start = PerformanceCounter();
 
 //    auto start = high_resolution_clock::now();
@@ -186,14 +186,14 @@ int main()
     g = prims(g);
     long long finish = PerformanceCounter();
     long long frequency = PerformanceFrequency();
-    double timeElapsed = ((finish - start) * 1000000.0) / frequency;
+    double timeElapsed = ((finish - start) * 1000.0) / frequency;
 //    end_t = clock();
 //    auto stop = high_resolution_clock::now();
 //    auto duration = duration_cast<nanoseconds>(stop - start);
 //    cout << "Time taken by function: "<< duration.count() << " nanoseconds" << endl;
 //    total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC*1000;
 //    cout<<"Prim's algorithm MST (total cost: "<<g.mstCost<<"; runtime: "<<duration.count()<<"ns)\n";
-    cout<<"Prim's algorithm MST (total cost: "<<g.mstCost<<"; runtime: "<<timeElapsed<<"ns)\n";
+    cout<<"Prim's algorithm MST (total cost: "<<g.mstCost<<"; runtime: "<<timeElapsed<<"ms)\n";
     g.displayMST();
 
     long long startKruskalCounter = PerformanceCounter();
@@ -202,7 +202,7 @@ int main()
     long long stopKruskalCounter = PerformanceCounter();
     long long Kruskalfrequency = PerformanceFrequency();
     double timeElapsedKruskal = ((stopKruskalCounter-startKruskalCounter)*1000.0) / Kruskalfrequency;
-    cout<<"Kruskal's algorithm MST (total cost: "<<gKruskal.mstCost<<"; runtime: "<<timeElapsedKruskal<<"us)\n";
+    cout<<"Kruskal's algorithm MST (total cost: "<<gKruskal.mstCost<<"; runtime: "<<timeElapsedKruskal<<"ms)\n";
     gKruskal.displayMST();
 
     return 0;
