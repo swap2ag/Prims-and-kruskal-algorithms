@@ -1,27 +1,27 @@
 #include <iostream>
 #include <fstream>
-//#include<time.h>
+#include<time.h>
 //#include <chrono>
-#include <windows.h>
+//#include <windows.h>
 
 #include "graph.h"
 #include "prims.h"
 #include "kruskal.h"
 using namespace std;
-//using namespace std::chrono;
-long long PerformanceCounter()
-{
-    LARGE_INTEGER timeCtr;
-    ::QueryPerformanceCounter(&timeCtr);
-    return timeCtr.QuadPart;
-}
-// -----------------------------------------
-long long PerformanceFrequency()
-{
-    LARGE_INTEGER timeCtr;
-    ::QueryPerformanceFrequency(&timeCtr);
-    return timeCtr.QuadPart;
-}
+////using namespace std::chrono;
+//long long PerformanceCounter()
+//{
+//    LARGE_INTEGER timeCtr;
+//    ::QueryPerformanceCounter(&timeCtr);
+//    return timeCtr.QuadPart;
+//}
+//// -----------------------------------------
+//long long PerformanceFrequency()
+//{
+//    LARGE_INTEGER timeCtr;
+//    ::QueryPerformanceFrequency(&timeCtr);
+//    return timeCtr.QuadPart;
+//}
 // -------------------------------------------
 //int getVertex()
 //{
@@ -143,7 +143,7 @@ int main()
 {
     int n0;
     char filename[100];
-//    clock_t start_t, end_t,total_t;
+    clock_t start_t, end_t,total_t;
 
 
     cout <<"Enter number of vertices in the graph: ";
@@ -179,30 +179,34 @@ int main()
 //    displayGraph(gKruskal);
 //// ---------------
 //    // Record start time
-    long long start = PerformanceCounter();
+//    long long start = PerformanceCounter();
 
 //    auto start = high_resolution_clock::now();
-//    start_t = clock();
+    start_t = clock();
     g = prims(g);
-    long long finish = PerformanceCounter();
-    long long frequency = PerformanceFrequency();
-    double timeElapsed = ((finish - start) * 1000.0) / frequency;
-//    end_t = clock();
+    end_t = clock();
+//    long long finish = PerformanceCounter();
+//    long long frequency = PerformanceFrequency();
+//    double timeElapsed = ((finish - start) * 1000.0) / frequency;
+
 //    auto stop = high_resolution_clock::now();
 //    auto duration = duration_cast<nanoseconds>(stop - start);
 //    cout << "Time taken by function: "<< duration.count() << " nanoseconds" << endl;
-//    total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC*1000;
+    total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC*1000;
 //    cout<<"Prim's algorithm MST (total cost: "<<g.mstCost<<"; runtime: "<<duration.count()<<"ns)\n";
-    cout<<"Prim's algorithm MST (total cost: "<<g.mstCost<<"; runtime: "<<timeElapsed<<"ms)\n";
+    cout<<"Prim's algorithm MST (total cost: "<<g.mstCost<<"; runtime: "<<total_t<<"ms)\n";
     g.displayMST();
 
-    long long startKruskalCounter = PerformanceCounter();
+//    long long startKruskalCounter = PerformanceCounter();
 //    cout<<"performance counter activated\n";
+    start_t = clock();
     gKruskal = kruskal(gKruskal);
-    long long stopKruskalCounter = PerformanceCounter();
-    long long Kruskalfrequency = PerformanceFrequency();
-    double timeElapsedKruskal = ((stopKruskalCounter-startKruskalCounter)*1000.0) / Kruskalfrequency;
-    cout<<"Kruskal's algorithm MST (total cost: "<<gKruskal.mstCost<<"; runtime: "<<timeElapsedKruskal<<"ms)\n";
+    end_t = clock();
+    total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC*1000;
+//    long long stopKruskalCounter = PerformanceCounter();
+//    long long Kruskalfrequency = PerformanceFrequency();
+//    double timeElapsedKruskal = ((stopKruskalCounter-startKruskalCounter)*1000.0) / Kruskalfrequency;
+    cout<<"Kruskal's algorithm MST (total cost: "<<gKruskal.mstCost<<"; runtime: "<<total_t<<"ms)\n";
     gKruskal.displayMST();
 
     return 0;
