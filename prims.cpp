@@ -72,3 +72,4 @@ graph prims(graph g)
 //    dispArrays(lowcost,closest,n);
     return g;
 }
+

@@ -1,11 +1,14 @@
 #include<iostream>
-#include"kruskal.h"
-#include"kruskalADTs.h"
 #include"graph.h"
+
+#include"kruskalADTs.h"
+#include"kruskal.h"
+
 using namespace std;
 graph kruskal(graph g)
 {
 //    g.mst = NULL;       // set T of edges in MST
+	g.mst = new int[2*(g.getNumNodes()-1)];
     int currConnectedComponents,next=0;
     priorityQueue q(g);
     q.makeNull();
@@ -83,7 +86,9 @@ graph kruskal(graph g)
             currConnectedComponents--;
 //            cout<<"Connected components: "<<currConnectedComponents<<"\n";
         }
-//       cout<<"\nKruskal's successfully over....\n";
+
     }
+//    cout<<"\nKruskal's successfully over....\n";
     return g;
 }
+
