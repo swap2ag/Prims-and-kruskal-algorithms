@@ -16,7 +16,7 @@ graph::graph(int n)
     infCost = 0;
     mstCost = 0;
     maxCost = 0;
-    mst = new int[numNodes];
+    
 }										// Number of nodes have to be passed and and a graph with no edges will be constructed by this
 //=====Getters======
 int graph::getNumNodes()

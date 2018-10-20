@@ -1,119 +1,18 @@
 #include <iostream>
 #include <fstream>
-//#include<time.h>
 #include <chrono>
-//#include <windows.h>
+
 
 #include "graph.h"
 #include "prims.h"
 #include "kruskal.h"
 using namespace std;
 using namespace std::chrono;
-//long long PerformanceCounter()
-//{
-//    LARGE_INTEGER timeCtr;
-//    ::QueryPerformanceCounter(&timeCtr);
-//    return timeCtr.QuadPart;
-//}
-//// -----------------------------------------
-//long long PerformanceFrequency()
-//{
-//    LARGE_INTEGER timeCtr;
-//    ::QueryPerformanceFrequency(&timeCtr);
-//    return timeCtr.QuadPart;
-//}
-// -------------------------------------------
-//int getVertex()
-//{
-//    int vertex;
-//    cin>>vertex;
-//    return vertex;
-////}
-//void displayGraph(graph g)
-//{
-//    cout<<endl;
-//    int n = g.getNumNodes();
-//    for (int i =0 ;i<n;i++)
-//    {
-//        for(int j=0;j<n;j++)
-//            cout<<g.getEdge(i,j)<<" ";
-//        cout<<"\n";
-//    }
-//}
-//graph createGraphManually(graph g)
-//{
-//    int n0 = g.getNumNodes();
-//    int srcVertex, destVertex,cost;
-//
-// while(1)
-//    {
-//        cout<<"Enter source vertex[0 to abort entering]: ";
-//        srcVertex = getVertex();
-//        if(srcVertex == 0)
-//            break;
-//        else if(srcVertex > n0 || srcVertex<0)
-//            {
-//                while(srcVertex>n0 || srcVertex<0)
-//                {
-//                    cout<<"Enter valid vertex [1 to "<<n0<<" ]\n";
-//                    srcVertex = getVertex();
-//                }
-//            }
-//            cout<<"Enter destination vertex[0 to abort entering]:";
-//        destVertex = getVertex();
-//        if(destVertex == 0)
-//            break;
-//        else if(destVertex > n0 || destVertex<0)
-//            {
-//                while(destVertex>n0 || destVertex<0)
-//                {
-//                    cout<<"Enter valid vertex [1 to "<<n0<<" ]\n";
-//                    destVertex = getVertex();
-//                }
-//            }
-//        cout<<"Enter the weight of edge between them[0 or -1 to represent no edge]: ";
-//        cin>>cost;
-//        g.setEdge(srcVertex-1,destVertex-1,cost);
-//        cout<<endl;
-//    }
-//    return g;
-//}
-//
-//graph createDefaultGraph(graph g)
-//{
-//    g.setEdge(0,1,6);
-//    g.setEdge(0,2,1);
-//    g.setEdge(0,3,5);
-//
-//    g.setEdge(1,0,6);
-//    g.setEdge(1,2,5);
-//    g.setEdge(1,4,3);
-//
-//    g.setEdge(2,0,1);
-//    g.setEdge(2,1,5);
-//    g.setEdge(2,3,5);
-//    g.setEdge(2,4,6);
-//    g.setEdge(2,5,4);
-//
-//    g.setEdge(3,0,5);
-//    g.setEdge(3,2,5);
-//    g.setEdge(3,5,2);
-//
-//    g.setEdge(4,1,3);
-//    g.setEdge(4,2,6);
-//    g.setEdge(4,5,6);
-//    g.setEdge(5,2,4);
-//    g.setEdge(5,3,2);
-//    g.setEdge(5,4,6);
-//
-//    return g;
-//}
 
-//---UNDER DEVELOPMENT---- need to enter
-graph createGraphFromFile(char st[],graph g,int n)
+graph createGraphFromFile(char st[],int n)
 {
     int i,j;
-
+    graph g(n);
     int *MYadjMat=new int[n*n];
     ifstream graphFile(st);
     if(!graphFile)
@@ -142,21 +41,16 @@ graph createGraphFromFile(char st[],graph g,int n)
 int main()
 {
     int n0;
-    char filename[100];
+    char filename[30];
 //    clock_t start_t, end_t,total_t;
 
 
     cout <<"Enter number of vertices in the graph: ";
     cin>>n0;
-    graph g(n0);
-    graph gKruskal(n0);
-// ------------------------------
-//  g = createDefaultGraph(g);
-//  g = createGraphManually(g);
     cout<<"Enter file to read the graph from: ";
     cin>>filename;
-    g = createGraphFromFile(filename,g,n0);
-    gKruskal = createGraphFromFile(filename,gKruskal,n0);
+    graph g = createGraphFromFile(filename,n0);
+    graph gKruskal = createGraphFromFile(filename,n0);
 //    cout<<"After reading from file: \n";
 //    displayGraph(gKruskal);
 //    g = createGraphFromFile("new_inputDefault.txt",g,n0);
