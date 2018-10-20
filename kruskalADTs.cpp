@@ -7,7 +7,6 @@ using namespace std;
 // ------------------------------------------
 PQ_entry::PQ_entry()
 {
-    return;
 }
 PQ_entry::PQ_entry(int ver1, int ver2, int cost)
 {
@@ -41,10 +40,12 @@ void PQ_entry::setVertices(int x1,int x2)
 
 priorityQueue::priorityQueue(graph g)
 {
-
-    contents = new PQ_entry[g.getNumNodes()+1];
+	// this numnodes is the size of PQ
+    numNodes = g.getNumNodes();
+    numNodes = numNodes*(numNodes-1);
+	contents = new PQ_entry[numNodes];
+    
     // need to add entries in this from the graph.
-    return;
 }
 void priorityQueue::makeNull()
 {
@@ -60,10 +61,10 @@ void priorityQueue::insertInPQ(PQ_entry x)
 //    {
 //        cout<<"contents of "<<i<<"th element: "<<"v1: "<<contents[i].getV1()<<" v2: "<<contents[i].getV2()<<" cost: "<<contents[i].getPriority()<<"\n";
 //    }
-    if (last>=numNodes)
+    if (last>numNodes)
     {
         std::cout<<"Priority queue is full!!!";
-        return;
+//        return this;
     }
     else
     {
@@ -84,6 +85,7 @@ void priorityQueue::insertInPQ(PQ_entry x)
             i = i/2;
         }
     }
+//    return this;
 }
 PQ_entry priorityQueue::deleteMin()
 {
@@ -93,7 +95,7 @@ PQ_entry priorityQueue::deleteMin()
 //    cout<<"\ndeleteMIn begins\n";
 //    cout<<"last is: "<<last<<endl;
     if(last == 0)
-        std::cout<<"Priority queue is empty";
+        std::cout<<"Priority queue is empty\n";
     else
     {
 //        cout<<"\nEntered else\n";
@@ -285,3 +287,4 @@ int mfset::findSet(int x)
 {
     return elements[x].getSETname();
 }
+
