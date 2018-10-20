@@ -2,10 +2,11 @@
 1539440316 source:f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\graphmine.cpp
 	<iostream>
 
-1540014555 source:f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\main.cpp
+1540021779 source:f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\main.cpp
 	<iostream>
 	<fstream>
 	<chrono>
+	<windows.h>
 	"graph.h"
 	"prims.h"
 	"kruskal.h"
@@ -16,7 +17,7 @@
 1539500044 f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\graph.cpp
 	<iostream>
 
-1540019578 source:f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\graph.cpp
+1540021533 source:f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\graph.cpp
 	"graph.h"
 	<iostream>
 
@@ -33,13 +34,13 @@
 
 1539617324 f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\prims.h
 
-1540020368 source:f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\kruskal.cpp
+1540021533 source:f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\kruskal.cpp
 	<iostream>
 	"graph.h"
 	"kruskalADTs.h"
 	"kruskal.h"
 
-1540014226 f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\kruskal.h
+1540021533 f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\kruskal.h
 
 1539674889 source:f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\pq_entry.cpp
 	"PQ_entry.h"
@@ -59,7 +60,7 @@
 	"graph.h"
 	<iostream>
 
-1540017444 source:f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\kruskaladts.cpp
+1540021533 source:f:\iit_delhi\1st_sem\ell781 software fundamentals\assignments\assignment2\sfct_assignment2\kruskaladts.cpp
 	"kruskalADTs.h"
 	"graph.h"
 	"PQ_entry.h"
