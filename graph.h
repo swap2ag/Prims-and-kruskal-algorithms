@@ -4,7 +4,7 @@
 class graph
 {
 
-	int *adjMat                             // adjacency matrix to represent the graph
+	int *adjMat;                            // adjacency matrix to represent the graph
 	int numNodes;                           // number of nodes in the graph
     int infCost,maxCost;                    // infCost denotes the cost to be treated as infinity (ie for those vertices that have been already included in U)
                                             // maxCost stores the maximum cost edge of the graph
