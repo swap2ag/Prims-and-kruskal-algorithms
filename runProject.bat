@@ -1,8 +1,8 @@
-g++ -c prims.cpp -o prims.o
-g++ -c main.cpp -o main.o
-g++ -c kruskal.cpp -o kruskal.o
-g++ -c kruskalADTs.cpp -o kruskalADTs.o
-g++ -c graph.cpp -o graph.o
+g++ -c -std=c++11 prims.cpp -o prims.o
+g++ -c -std=c++11 main.cpp -o main.o
+g++ -c -std=c++11 kruskal.cpp -o kruskal.o
+g++ -c -std=c++11 kruskalADTs.cpp -o kruskalADTs.o
+g++ -c -std=c++11 graph.cpp -o graph.o
 
 g++ -o main.exe main.o graph.o prims.o kruskalADTs.o kruskal.o -s
 
