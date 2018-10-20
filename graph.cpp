@@ -16,8 +16,8 @@ graph::graph(int n)
     infCost = 0;
     mstCost = 0;
     maxCost = 0;
-    
-}										// Number of nodes have to be passed and and a graph with no edges will be constructed by this
+
+}
 //=====Getters======
 int graph::getNumNodes()
 {
@@ -42,12 +42,8 @@ void graph::findMaxCost()
         {
             if(getEdge(i,j)>maxCost)
             {
-//                cout<<"\nOld maxcost: "<<maxCost<<"\n";
                 maxCost = getEdge(i,j);
-//                cout<<"\nNew maxCost: "<<maxCost<<endl;
             }
-//            else
-//                cout<<"\nStill the same old maxCost: "<<maxCost<<endl;
         }
     }
     infCost = maxCost+2;    // since maxCost+1 is the cost of missing edges and infCost is for vertex already in U.

@@ -3,7 +3,6 @@
 #include"graph.h"
 #include<iostream>  // for displaying MFSET
 using namespace std;
-//#define MAXSIZE 200
 // we will use partially ordered tree implementation of priority queue as DELETEMIN() AND INSERT() are O(log(n)) in it.
 
 // priority_queue ADT

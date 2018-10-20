@@ -21,5 +21,4 @@ class graph
         void findMaxCost();
         void displayMST();
 };
-
 #endif // GRAPH_INCLUDE

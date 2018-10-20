@@ -1,20 +1,5 @@
 #include"graph.h"
-#include<iostream>
 #include"prims.h"
-
-using namespace std;
-
-void dispArrays(int *lowcost,int *closest,int n)
-{
-    int i;
-    cout<<"Closest: ";
-    for(i=0;i<n;i++)
-        cout<<*(closest+i)<<" ";
-    cout<<"\nlowcost: \n";
-    for(i=0;i<n;i++)
-        cout<<*(lowcost+i)<<" ";
-    cout<<endl;
-}
 
 graph prims(graph g)
 {
@@ -32,11 +17,9 @@ graph prims(graph g)
         *(lowcost+i) = g.getEdge(i,0);
         *(closest+i) = 0;
     }
-//    dispArrays(lowcost,closest,n);
     for (i=1;i<n;i++)
     {
         minimum = *(lowcost+1);
-//        cout<<"\nValue of minimum initially: "<<minimum;
         k = 1;
         for(j=2;j<n;j++)
         {
@@ -44,31 +27,23 @@ graph prims(graph g)
             {
                 minimum = *(lowcost+j);
                 k = j;
-//                cout<<"\nNew minimum at "<<k<<": "<<minimum<<"\n";
             }
-//            else
-//                cout<<"Same old minimum at "<<k<<": "<<minimum<<"\n";
         }
-//        cout<<"Minimum after for loop: "<<minimum<<"\n";
         *(g.mst+index) = k;
         *(g.mst+index+1) = *(closest+k);
-        index = index+2;
-//        cout<<k<<" "<<*(closest+k)<<endl;
 
+        index = index+2;
         g.mstCost = g.mstCost + g.getEdge(k,closest[k]);
+
         *(lowcost+k) = g.getInfCost();
-//        dispArrays(lowcost,closest,n);
         for(j=1;j<n;j++)
         {
             if(g.getEdge(k,j)<*(lowcost+j) && (lowcost[j]<g.getInfCost()))
                {
                    *(lowcost+j) = g.getEdge(k,j);
                    *(closest+j) = k;
-//                   cout<<"\ninside if: ";
-//                   dispArrays(lowcost,closest,n);
                }
         }
     }
-//    dispArrays(lowcost,closest,n);
     return g;
 }
