@@ -4,9 +4,12 @@
 #include"graph.h"
 #include"PQ_entry.h"
 
+// Priority queue ADT has variables of type PQ_entry
 // function definitions for class PQ_entry
 // ------------------------------------------
-PQ_entry::PQ_entry()
+
+// ==== Constructor ====
+PQ_entry::PQ_entry()                                // does nothing but is required for creating object with n values initially
 {
 }
 PQ_entry::PQ_entry(int ver1, int ver2, int cost)
@@ -15,56 +18,67 @@ PQ_entry::PQ_entry(int ver1, int ver2, int cost)
     v2 = ver2;
     cost_priority = cost;
 }
-int PQ_entry::getPriority()
+// ==== Getter functions ====
+int PQ_entry::getPriority()                         // returns priority (cost)
 {
     return cost_priority;
 }
-int PQ_entry::getV1()
+int PQ_entry::getV1()                               // returns vertex 1
 {
     return v1;
 }
-int PQ_entry::getV2()
+int PQ_entry::getV2()                               // returns vertex 2
 {
     return v2;
 }
-void PQ_entry::setPriority(int x)
+// ==== Setter functions ====
+void PQ_entry::setPriority(int x)                   // sets priority(cost)
 {
     cost_priority = x;
 }
-void PQ_entry::setVertices(int x1,int x2)
+void PQ_entry::setVertices(int x1,int x2)           // sets vertices as x1 and x2
 {
     v1 = x1;
     v2 = x2;
 }
 
+// function definitions for class priorityQueue
 // --------------------------------------------
+// * Priority queue ADT has been implemented as partially ordered tree
 
-priorityQueue::priorityQueue(graph g)
+// ==== Constructor ====
+priorityQueue::priorityQueue(graph g)               // g is passed so that size of priority queue is g.numNodes*(g.numNodes-1) at max
 {
 	// this numnodes is the size of PQ
-    numNodes = g.getNumNodes();
+    numNodes = g.getNumNodes();                     // sets the size of priority queue which is number of edges present in graph
+                                                    // and whose maximum value can be n*(n-1), where n is the number of nodes in the graph
     numNodes = numNodes*(numNodes-1);
 	contents = new PQ_entry[numNodes];
 }
+
+// ==== functions for priority queue ====
+// makeNull() makes the priority queue NULL
 void priorityQueue::makeNull()
 {
-    last = 0;
+    last = 0;                                       // last is the index of last element in priority queue and thus setting it to 0, makes it empty
+                                                    // since I have started indexing in queue from 1
 }
+// inserts an entry in priority queue
 void priorityQueue::insertInPQ(PQ_entry x)
 {
     int i;
-    PQ_entry temp;
-    if (last>numNodes)
+    PQ_entry temp;                                  // a temporary entry for swapping entries
+    if (last>numNodes)                              // this numNodes is size of priority queue
     {
-        std::cout<<"Priority queue is full!!!";
+        std::cout<<"Priority queue is full";
     }
     else
     {
-        last = last+1;
-        contents[last].setPriority(x.getPriority()); // add entry at the last
+        last = last+1;                                                                      // increment last by 1, since it is the index of last element
+        contents[last].setPriority(x.getPriority());                                        // add the entry x at the last
         contents[last].setVertices(x.getV1(),x.getV2());
-        i = last;
-        while((i>1) && ((contents[i].getPriority()) < (contents[i/2].getPriority())) )     // till added child is greater than parent exchange
+        i = last;                                                                           // for traversing up the tree
+        while((i>1) && ((contents[i].getPriority()) < (contents[i/2].getPriority())) )      // till added child is greater than parent swap the nodes
         {
             temp.setPriority(contents[i].getPriority());
             temp.setVertices(contents[i].getV1(),contents[i].getV2());
@@ -78,6 +92,8 @@ void priorityQueue::insertInPQ(PQ_entry x)
         }
     }
 }
+
+// deletes the minimum cost(max priority) element from priority queue
 PQ_entry priorityQueue::deleteMin()
 {
     int i,j;

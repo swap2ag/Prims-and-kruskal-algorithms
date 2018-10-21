@@ -23,7 +23,6 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="PQ_entry.h" />
 		<Unit filename="graph.cpp" />
 		<Unit filename="graph.h" />
 		<Unit filename="kruskal.cpp" />
@@ -33,7 +32,6 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="prims.cpp" />
 		<Unit filename="prims.h" />
-		<Unit filename="version.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
