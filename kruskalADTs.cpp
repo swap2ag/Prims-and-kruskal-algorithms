@@ -9,7 +9,7 @@
 // ------------------------------------------
 
 // ==== Constructor ====
-PQ_entry::PQ_entry()                                // does nothing but is required for creating object with n values initially
+PQ_entry::PQ_entry()                                // does nothing but is required for creating object with no values initially
 {
 }
 PQ_entry::PQ_entry(int ver1, int ver2, int cost)

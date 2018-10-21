@@ -1,3 +1,6 @@
+/*
+    This file contains the defintion of function for Kruskal's algorithm which takes a graph instance as input and returns it as output after creating MST
+*/
 #include"graph.h"
 #include"kruskalADTs.h"
 #include"kruskal.h"

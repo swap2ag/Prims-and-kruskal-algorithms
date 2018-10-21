@@ -1,3 +1,7 @@
+/*
+    This file contains the definitions for GRAPH ADT.
+    I have used adjacency matrix representation for the graph.
+*/
 #include"graph.h"                               // includes declaration of graph ADT
 #include<iostream>                              // for displayMST()
 using namespace std;

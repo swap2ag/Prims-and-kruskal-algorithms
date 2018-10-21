@@ -62,20 +62,22 @@ int main()
         }
     }
     // code for finding mst by prim's and calculating runtime of prim's
-    auto primsTimerStart = high_resolution_clock::now();        // uses high resolution clock to get accurate time and starts it
-    g = prims(g);                                               // calculates minimum spanning tree from prims and returns an instance of graph ADT
-    auto primsTimerStop= high_resolution_clock::now();          // stops the clock
-    auto primsDuration = duration_cast<milliseconds>(primsTimerStop-primsTimerStart);  // calculates duration between two time points and casts it into milliseconds
+    auto primsTimerStart = high_resolution_clock::now();                                // uses high resolution clock to get accurate time and starts it
+    g = prims(g);                                                                       // calculates minimum spanning tree from prims and returns an instance of graph ADT
+    auto primsTimerStop= high_resolution_clock::now();                                  // stops the clock
+    auto primsDuration = duration_cast<milliseconds>(primsTimerStop-primsTimerStart);   // calculates duration between two time points and casts it into milliseconds
 
-    cout<<"Prim's algorithm MST (total cost: "<<g.mstCost<<"; runtime: "<<primsDuration.count()<<"ms)\n";    // displays MST pbtained from prim's algorithm
+    // display MST returned by Prim's algorithm
+    cout<<"Prim's algorithm MST (total cost: "<<g.mstCost<<"; runtime: "<<primsDuration.count()<<"ms)\n";
     g.displayMST();
 
     // Code for finding MST by Kruskal's algorithm and displaying it along with runtime
-    auto kruskalTimerStart = high_resolution_clock::now();      // stores the current timepoint
-    gKruskal = kruskal(gKruskal);                               // finds MST by Kruskal which returns it as a graph object
-    auto kruskalTimerStop = high_resolution_clock::now();       // again stores the current timepoint
-    auto kruskalDuration = duration_cast<milliseconds>(kruskalTimerStop-kruskalTimerStart);       // calculates difference between two to find duration
-    // dispkay MST returned by Kruskal's a;gorithm
+    auto kruskalTimerStart = high_resolution_clock::now();                                          // stores the current timepoint
+    gKruskal = kruskal(gKruskal);                                                                   // finds MST by Kruskal which returns it as a graph object
+    auto kruskalTimerStop = high_resolution_clock::now();                                           // again stores the current timepoint
+    auto kruskalDuration = duration_cast<milliseconds>(kruskalTimerStop-kruskalTimerStart);         // calculates difference between two to find duration
+
+    // display MST returned by Kruskal's a;gorithm
     cout<<"Kruskal's algorithm MST (total cost: "<<gKruskal.mstCost<<"; runtime: "<<kruskalDuration.count()<<"ms)\n";
     gKruskal.displayMST();
 
