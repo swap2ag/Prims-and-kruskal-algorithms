@@ -1,5 +1,5 @@
-#include<iostream>
-
+/* This file defines ADTs required for Kruskal algorithm,ie- Priority queue and MFSET
+*/
 #include"kruskalADTs.h"
 #include"graph.h"
 #include"PQ_entry.h"
@@ -12,7 +12,7 @@
 PQ_entry::PQ_entry()                                // does nothing but is required for creating object with no values initially
 {
 }
-PQ_entry::PQ_entry(int ver1, int ver2, int cost)
+PQ_entry::PQ_entry(int ver1, int ver2, int cost)    // initializes an entry of priority queue
 {
     v1 = ver1;
     v2 = ver2;
@@ -97,25 +97,24 @@ void priorityQueue::insertInPQ(PQ_entry x)
 PQ_entry priorityQueue::deleteMin()
 {
     int i,j;
-    PQ_entry tempEntry;
-    PQ_entry minimumEntry;
-    if(last == 0)
+    PQ_entry tempEntry;    // a temporary entry to move the last node which has been placed at the root of partially ordered to its child nodes so that cost of parent is less than cost of child
+    PQ_entry minimumEntry; // to store and return minimum cost entry
+    if(last == 0)          // if last is 0, then priority queue is empty
         std::cout<<"Priority queue is empty\n";
     else
     {
-        minimumEntry.setPriority(contents[1].getPriority());
+        minimumEntry.setPriority(contents[1].getPriority());                    // copy first entry in priority queue to minimumEntry
         minimumEntry.setVertices(contents[1].getV1(),contents[1].getV2());
 
-        contents[1].setPriority(contents[last].getPriority());
+        // place last node to the first node
+        contents[1].setPriority(contents[last].getPriority());                  // move last entry to first entry in priority queue
         contents[1].setVertices(contents[last].getV1(),contents[last].getV2());
 
-
-        // place last node to the first node
-        last = last-1;
+        last = last-1;                                                          // since last entry is moved to first, so decrement index of last entry
         i = 1;  // i is the current position of the old last element
-        while (i<=(last/2))
+        while (i<=(last/2))                                                                         // Push the old last entry down the tree, so that minimum cost entry is at the beginning of priority queue
         {
-            if( (contents[2*i].getPriority() < contents[2*i+1].getPriority()) || (2*i == last) )
+            if( (contents[2*i].getPriority() < contents[2*i+1].getPriority()) || (2*i == last) )    // j will be the child of i having smaller priority
             {
                 j = 2*i;
             }
@@ -123,7 +122,7 @@ PQ_entry priorityQueue::deleteMin()
             {
                 j = 2*i+1;
             }
-            if (contents[i].getPriority()>contents[j].getPriority())    // if the parent node is greater than smaller of two child nodes or if it is the last node
+            if (contents[i].getPriority()>contents[j].getPriority())    // if the parent node's priority is greater than smaller of two child nodes' priority or if it is the last node, then swap entries
             {
                 tempEntry.setPriority(contents[i].getPriority());
                 tempEntry.setVertices(contents[i].getV1(),contents[i].getV2());
@@ -142,11 +141,12 @@ PQ_entry priorityQueue::deleteMin()
         }
 
     }
-    return minimumEntry;
+    return minimumEntry;                                                // return minimum cost entry
 }
 
 
-// --------------- MERGEFIND SET ADT definition -----------------------
+// --------------- MERGEFIND SET(MFSET) ADT definition -----------------------
+// ==== Getter function definitions for class sets ====
 int sets::getNumElements()
 {
     return numElements;
@@ -155,6 +155,7 @@ int sets::getFirstElementIndex()
 {
     return firstElementIndex;
 }
+// ==== Setter function definitions ====
 void sets::setNumElements(int n)
 {
     numElements = n;
@@ -164,7 +165,7 @@ void sets::setFirstElementIndex(int elementIndex)
     firstElementIndex = elementIndex;
 }
 // setElement class member functions definitions
-// getters
+// ==== Getter functions for class setElement ====
 int setElement::getSETname()
 {
     return setName;
@@ -173,7 +174,7 @@ int setElement::getNextElementIndex()
 {
     return nextElementIndex;
 }
-// setters
+// ==== Setter functions for class setElement ====
 void setElement::setSETname(int x)
 {
     setName = x;
@@ -184,37 +185,37 @@ void setElement::setNextElementIndex(int index)
 }
 
 // --------- MFSET member function definitions -------
-mfset::mfset(int numSets, int numElements){}
-void mfset::initial(int setName, int x)
+// ==== constructor ====
+mfset::mfset(int numSets, int numElements){}        // does nothing
+// ==== definition of associated functions for MFSET ADT
+void mfset::initial(int setName, int x)             // initialises a set having name as setName with an element x of type setElement
 {
-    elements[x].setSETname(setName);
-    elements[x].setNextElementIndex(-1);    // since in array 0 is a valid, so using -1
-    setHeaders[setName].setNumElements(1);
-    setHeaders[setName].setFirstElementIndex(x);
+    elements[x].setSETname(setName);                // sets the name
+    elements[x].setNextElementIndex(-1);            // since in array 0 is a valid, so using -1
+    setHeaders[setName].setNumElements(1);          // sets number of elements in new set as 1
+    setHeaders[setName].setFirstElementIndex(x);    // and sets the index of first element
 }
 
-void mfset::mergeSets(int setA, int setB)
+void mfset::mergeSets(int setA, int setB)                                       // merges the sets A and B
 {
     int i;
-    if (setHeaders[setA].getNumElements() > setHeaders[setB].getNumElements())
+    if (setHeaders[setA].getNumElements() > setHeaders[setB].getNumElements())  // if A is larger set, merge B into A
     {
-
-        // A is lager set, so merge B into A
-        i = setHeaders[setB].getFirstElementIndex();
+        i = setHeaders[setB].getFirstElementIndex();                            // change the elements in setB to setA
         while(elements[i].getNextElementIndex() != -1)
         {
             elements[i].setSETname(setA);
             i = elements[i].getNextElementIndex();
         }
-        // append A tp end of B and call the result A
-        elements[i].setSETname(setA);
+        // append elements in set A to end of set B and call the result as set A
+        elements[i].setSETname(setA);                                            // set name of last element in set B as set A and set its next element index as that of A
         elements[i].setNextElementIndex(setHeaders[setA].getFirstElementIndex());
 
 
-        setHeaders[setA].setFirstElementIndex(setHeaders[setB].getFirstElementIndex());
-        setHeaders[setA].setNumElements(setHeaders[setA].getNumElements()+setHeaders[setB].getNumElements());
+        setHeaders[setA].setFirstElementIndex(setHeaders[setB].getFirstElementIndex());                         // set first element index of A as that of B since we are appending at the front
+        setHeaders[setA].setNumElements(setHeaders[setA].getNumElements()+setHeaders[setB].getNumElements());   // update number of elements in setA after appending
 
-        // nullifying setB
+        // nullifying setB by setting number of elements to 0 and index of first element as -1
         setHeaders[setB].setNumElements(0);
         setHeaders[setB].setFirstElementIndex(-1);
     }
@@ -227,18 +228,19 @@ void mfset::mergeSets(int setA, int setB)
             elements[i].setSETname(setB);
             i = elements[i].getNextElementIndex();
         }
-        // append A tp end of B and call the result B
-        elements[i].setSETname(setB);
+        // append elements in set B to end of set A and call the result as set B
+        elements[i].setSETname(setB);                                                   // set name of last element in set A as set B and set its next element index as that of B
         elements[i].setNextElementIndex(setHeaders[setB].getFirstElementIndex());
 
-        setHeaders[setB].setFirstElementIndex(setHeaders[setA].getFirstElementIndex());   // set firstelement index of B as that of B since we are appending at the front
-        setHeaders[setB].setNumElements(setHeaders[setB].getNumElements()+setHeaders[setA].getNumElements());
-        // nullifying setB
+        setHeaders[setB].setFirstElementIndex(setHeaders[setA].getFirstElementIndex());                         // set first element index of B as that of A since we are appending at the front
+        setHeaders[setB].setNumElements(setHeaders[setB].getNumElements()+setHeaders[setA].getNumElements());   // update number of elements in setB after appending
+        // nullifying setA by setting number of elements to 0 and index of first element as -1
         setHeaders[setA].setNumElements(0);
         setHeaders[setA].setFirstElementIndex(-1);
     }
 }
 
+// ==== returns the set to which element x belongs ====
 int mfset::findSet(int x)
 {
     return elements[x].getSETname();

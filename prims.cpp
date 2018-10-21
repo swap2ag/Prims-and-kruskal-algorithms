@@ -22,9 +22,9 @@ graph prims(graph g)
     }
     for (i=1;i<n;i++)                           // find the minimum cost edge to all vertices in V-U and add the lowest cost edge to MST
     {
-        minimum = *(lowcost+1);
+        minimum = *(lowcost+1);                 // let first cost be the lowest
         k = 1;
-        for(j=2;j<n;j++)
+        for(j=2;j<n;j++)                        // traverse through all costs
         {
             if(*(lowcost+j) <minimum)
             {
