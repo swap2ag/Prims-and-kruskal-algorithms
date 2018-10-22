@@ -79,8 +79,8 @@ public:
 class mfset
 {
 public:
-    sets setHeaders[100];                           // array of sets where each set contains number of elements in it and index of first element
-    setElement elements[100];                       // array of set elements where each element contains the name of set to which it belongs and and index of next element belonging to the same set
+    sets setHeaders[2000];                           // array of sets where each set contains number of elements in it and index of first element
+    setElement elements[2000];                       // array of set elements where each element contains the name of set to which it belongs and and index of next element belonging to the same set
     //==== Constructor ====
     mfset(int numSets, int numElements);            // not required
     //==== functions that can be performed on MFSET ADT ====

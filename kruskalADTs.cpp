@@ -196,7 +196,8 @@ void mfset::initial(int setName, int x)             // initialises a set having 
     setHeaders[setName].setFirstElementIndex(x);    // and sets the index of first element
 }
 
-void mfset::mergeSets(int setA, int setB)                                       // merges the sets A and B
+// ==== merges the sets A and B ====
+void mfset::mergeSets(int setA, int setB)
 {
     int i;
     if (setHeaders[setA].getNumElements() > setHeaders[setB].getNumElements())  // if A is larger set, merge B into A
