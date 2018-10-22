@@ -20,7 +20,7 @@ graph kruskal(graph g)
         next++;
     }
 
-  for(int i=0;i<g.getNumNodes();i++)                    // add all edges present in graph in prioritu queue
+  for(int i=0;i<g.getNumNodes();i++)                    // add all edges present in graph in priority queue
     {
         for(int j=i+1;j<g.getNumNodes();j++)
         {
@@ -33,7 +33,7 @@ graph kruskal(graph g)
     }
 
     g.mstCost = 0;                                      // initialize mstCost as 0
-    int mstIndex=0;                                     // initialise index of first element of mst
+    int mstIndex=0;                                     // initialize index of first element of mst
 
     while(currConnectedComponents>1)                    // till 1 connected component(ie full MST forms) remains
     {
