@@ -2,7 +2,6 @@
 */
 #include"kruskalADTs.h"
 #include"graph.h"
-#include"PQ_entry.h"
 
 // Priority queue ADT has variables of type PQ_entry
 // function definitions for class PQ_entry
