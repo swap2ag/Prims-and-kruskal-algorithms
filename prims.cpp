@@ -1,8 +1,8 @@
 /*
     This file contains the implementation of prim's algorithm
 */
-#include"graph.h"
-#include"prims.h"
+#include "graph.h"
+#include "prims.h"
 
 graph prims(graph g)
 {
