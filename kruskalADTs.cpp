@@ -1,78 +1,91 @@
+/* This file defines ADTs required for Kruskal algorithm,ie- Priority queue and MFSET
+*/
 #include"kruskalADTs.h"
 #include"graph.h"
-#include"PQ_entry.h"
-#include<iostream>
-using namespace std;
+
+// Priority queue ADT has variables of type PQ_entry
 // function definitions for class PQ_entry
 // ------------------------------------------
-PQ_entry::PQ_entry()
+
+// ==== Constructor ====
+PQ_entry::PQ_entry()                                // does nothing but is required for creating object with no values initially
 {
 }
-PQ_entry::PQ_entry(int ver1, int ver2, int cost)
+PQ_entry::PQ_entry(int ver1, int ver2, int cost)    // initializes an entry of priority queue
 {
     v1 = ver1;
     v2 = ver2;
     cost_priority = cost;
 }
-int PQ_entry::getPriority()
+// ==== Getter functions ====
+int PQ_entry::getPriority()                         // returns priority (cost)
 {
     return cost_priority;
 }
-int PQ_entry::getV1()
+int PQ_entry::getV1()                               // returns vertex 1
 {
     return v1;
 }
-int PQ_entry::getV2()
+int PQ_entry::getV2()                               // returns vertex 2
 {
     return v2;
 }
-void PQ_entry::setPriority(int x)
+// ==== Setter functions ====
+void PQ_entry::setPriority(int x)                   // sets priority(cost)
 {
     cost_priority = x;
 }
-void PQ_entry::setVertices(int x1,int x2)
+void PQ_entry::setVertices(int x1,int x2)           // sets vertices as x1 and x2
 {
     v1 = x1;
     v2 = x2;
 }
 
+// function definitions for class priorityQueue
 // --------------------------------------------
+// * Priority queue ADT has been implemented as partially ordered tree
 
-priorityQueue::priorityQueue(graph g)
+// ==== Constructor ====
+priorityQueue::priorityQueue(graph g)               // g is passed so that size of priority queue is g.numNodes*(g.numNodes-1) at max
 {
 	// this numnodes is the size of PQ
-    numNodes = g.getNumNodes();
+    numNodes = g.getNumNodes();                     // sets the size of priority queue which is number of edges present in graph
+                                                    // and whose maximum value can be n*(n-1), where n is the number of nodes in the graph
     numNodes = numNodes*(numNodes-1);
 	contents = new PQ_entry[numNodes];
-    
     // need to add entries in this from the graph.
 }
+
+// ==== functions for priority queue ====
+// makeNull() makes the priority queue NULL
 void priorityQueue::makeNull()
 {
-    last = 0;
+    last = 0;                                       // last is the index of last element in priority queue and thus setting it to 0, makes it empty
+                                                    // since I have started indexing in queue from 1
 }
+// inserts an entry in priority queue
 void priorityQueue::insertInPQ(PQ_entry x)
 {
     int i;
-    PQ_entry temp;
+    PQ_entry temp;                                  // a temporary entry for swapping entries
 //    cout<<"last is: "<<last<<endl;
 //    cout<<"Contents of PQ after entering insertinPQ()-------->>>>\n";
 //    for(int i=1;i<=last;i++)
 //    {
 //        cout<<"contents of "<<i<<"th element: "<<"v1: "<<contents[i].getV1()<<" v2: "<<contents[i].getV2()<<" cost: "<<contents[i].getPriority()<<"\n";
 //    }
-    if (last>numNodes)
+    if (last>numNodes)                              // this numNodes is size of priority queue
     {
-        std::cout<<"Priority queue is full!!!";
+        std::cout<<"Priority queue is full";
 //        return this;
     }
     else
     {
-        last = last+1;
-        contents[last].setPriority(x.getPriority()); // add entry at the last
+        last = last+1;                                                                      // increment last by 1, since it is the index of last element
+        contents[last].setPriority(x.getPriority());                                        // add the entry x at the last
         contents[last].setVertices(x.getV1(),x.getV2());
-        i = last;
-        while((i>1) && ((contents[i].getPriority()) < (contents[i/2].getPriority())) )     // till added child is greater than parent exchange
+        i = last;                                                                           // for traversing up the tree
+        while((i>1) && ((contents[i].getPriority()) < (contents[i/2].getPriority())) )      // till added child is greater than parent swap the nodes
         {
             temp.setPriority(contents[i].getPriority());
             temp.setVertices(contents[i].getV1(),contents[i].getV2());
@@ -87,57 +100,40 @@ void priorityQueue::insertInPQ(PQ_entry x)
     }
 //    return this;
 }
+
+// deletes the minimum cost(max priority) element from priority queue
 PQ_entry priorityQueue::deleteMin()
 {
     int i,j;
-    PQ_entry tempEntry;
-    PQ_entry minimumEntry;
+    PQ_entry tempEntry;    // a temporary entry to move the last node which has been placed at the root of partially ordered to its child nodes so that cost of parent is less than cost of child
+    PQ_entry minimumEntry; // to store and return minimum cost entry
 //    cout<<"\ndeleteMIn begins\n";
 //    cout<<"last is: "<<last<<endl;
-    if(last == 0)
+    if(last == 0)          // if last is 0, then priority queue is empty
         std::cout<<"Priority queue is empty\n";
     else
     {
-//        cout<<"\nEntered else\n";
-        minimumEntry.setPriority(contents[1].getPriority());
+        minimumEntry.setPriority(contents[1].getPriority());                    // copy first entry in priority queue to minimumEntry
         minimumEntry.setVertices(contents[1].getV1(),contents[1].getV2());
-//            minimumEntry = contents;    // points to the base of contents so that every time after pushing down all, minimum element is returned.
-//        cout<<"\nminentry pointing to first entry in contents\n";
-//      cout<<"contents of minimum entry: "<<"v1: "<<minimumEntry.getV1()<<" v2: "<<minimumEntry.getV2()<<" cost: "<<minimumEntry.getPriority()<<"\n";
-//  cout<<"contents of last: "<<"v1: "<<contents[last].getV1()<<" v2: "<<contents[last].getV2()<<" cost: "<<contents[last].getPriority()<<"\n";
-//        cout<<"initially contents of pQ: \n";
-//        for(i=1;i<=last;i++)
-//        {
-//            cout<<"contents of "<<i<<"th element: "<<"v1: "<<contents[i].getV1()<<" v2: "<<contents[i].getV2()<<" cost: "<<contents[i].getPriority()<<"\n";
-//        }
-        contents[1].setPriority(contents[last].getPriority());
-        contents[1].setVertices(contents[last].getV1(),contents[last].getV2());
-
 
         // place last node to the first node
-//        cout<<"contents of first ele: "<<contents[1]<<endl;
-        last = last-1;
-//         cout<<"later on: ";
-//        for(i=1;i<=last;i++)
-//        {
-//            cout<<"contents of "<<i<<"th element: "<<"v1: "<<contents[i].getV1()<<" v2: "<<contents[i].getV2()<<" cost: "<<contents[i].getPriority()<<"\n";
-//        }
+        contents[1].setPriority(contents[last].getPriority());                  // move last entry to first entry in priority queue
+        contents[1].setVertices(contents[last].getV1(),contents[last].getV2());
+
+        last = last-1;                                                          // since last entry is moved to first, so decrement index of last entry
         i = 1;  // i is the current position of the old last element
-        while (i<=(last/2))
+        while (i<=(last/2))                                                                         // Push the old last entry down the tree, so that minimum cost entry is at the beginning of priority queue
         {
-            if( (contents[2*i].getPriority() < contents[2*i+1].getPriority()) || (2*i == last) )
+            if( (contents[2*i].getPriority() < contents[2*i+1].getPriority()) || (2*i == last) )    // j will be the child of i having smaller priority
             {
                 j = 2*i;
-//                cout<<"\nj: "<<j<<" replacing with left element\n";
             }
             else
             {
                 j = 2*i+1;
-//                cout<<"\nj: "<<j<<"replacing with right element\n";
             }
-            if (contents[i].getPriority()>contents[j].getPriority())    // if the parent node is greater than smaller of two child nodes or if it is the last node
+            if (contents[i].getPriority()>contents[j].getPriority())    // if the parent node's priority is greater than smaller of two child nodes' priority or if it is the last node, then swap entries
             {
-//                cout<<"\nmoving entry to be deleted upwards\n";
                 tempEntry.setPriority(contents[i].getPriority());
                 tempEntry.setVertices(contents[i].getV1(),contents[i].getV2());
 
@@ -150,18 +146,17 @@ PQ_entry priorityQueue::deleteMin()
             }
             else
                 {
-//                    cout<<"\nminimum entry's v1: "<<minimumEntry.getV1()<<"\n minimum entry's v2: "<<minimumEntry.getV2()<<"\n";
                     return minimumEntry;
                 }
         }
 
     }
-//    cout<<"\nminimum entry's v1: "<<minimumEntry.getV1()<<"\n minimum entry's v2: "<<minimumEntry.getV2()<<"\n";
-    return minimumEntry;
+    return minimumEntry;                                                // return minimum cost entry
 }
 
 
-// --------------- MERGEFIND SET ADT definition -----------------------
+// --------------- MERGEFIND SET(MFSET) ADT definition -----------------------
+// ==== Getter function definitions for class sets ====
 int sets::getNumElements()
 {
     return numElements;
@@ -170,6 +165,7 @@ int sets::getFirstElementIndex()
 {
     return firstElementIndex;
 }
+// ==== Setter function definitions ====
 void sets::setNumElements(int n)
 {
     numElements = n;
@@ -179,7 +175,7 @@ void sets::setFirstElementIndex(int elementIndex)
     firstElementIndex = elementIndex;
 }
 // setElement class member functions definitions
-// getters
+// ==== Getter functions for class setElement ====
 int setElement::getSETname()
 {
     return setName;
@@ -188,7 +184,7 @@ int setElement::getNextElementIndex()
 {
     return nextElementIndex;
 }
-// setters
+// ==== Setter functions for class setElement ====
 void setElement::setSETname(int x)
 {
     setName = x;
@@ -199,60 +195,38 @@ void setElement::setNextElementIndex(int index)
 }
 
 // --------- MFSET member function definitions -------
-mfset::mfset(int numSets, int numElements)
+// ==== constructor ====
+mfset::mfset(int numSets, int numElements){}        // does nothing
+// ==== definition of associated functions for MFSET ADT
+void mfset::initial(int setName, int x)             // initialises a set having name as setName with an element x of type setElement
 {
-    // created
-//    setHeaders = new sets[numSets];
-//    elements = new setElement[numElements];
-//    for (int i=0;i<numElements;i++)
-//    {
-//        elements[i].setSETname(i);
-//        elements[i].setNextElementIndex(-1);
-//        setHeaders[i].setFirstElementIndex(i);
-//        setHeaders[i].setNumElements(1);
-//    }
-//    cout<<"displaying MFSET after initialising object of MFSET";
-//    displayMFSET(6);
-}
-void mfset::initial(int setName, int x)
-{
-    elements[x].setSETname(setName);
-    elements[x].setNextElementIndex(-1);    // since in array 0 is a valid, so using -1
-    setHeaders[setName].setNumElements(1);
-    setHeaders[setName].setFirstElementIndex(x);
-//    cout<<"\nAfter initialising mfset is: ";
-//    displayMFSET(6);
-//    cout<<"\n.....exiting initial()...\n";
+    elements[x].setSETname(setName);                // sets the name
+    elements[x].setNextElementIndex(-1);            // since in array 0 is a valid, so using -1
+    setHeaders[setName].setNumElements(1);          // sets number of elements in new set as 1
+    setHeaders[setName].setFirstElementIndex(x);    // and sets the index of first element
 }
 
+// ==== merges the sets A and B ====
 void mfset::mergeSets(int setA, int setB)
 {
-//    cout<<"\nMerge starts \n";
-//    cout<<"Entered merge: \n with setA: "<<setA<<" and SetB: "<<setB<<"\nand index of first element of B: ";
-
-//    cout<<setHeaders[setB].getFirstElementIndex()<<endl<<"-------------------"<<endl;
     int i;
-    if (setHeaders[setA].getNumElements() > setHeaders[setB].getNumElements())
+    if (setHeaders[setA].getNumElements() > setHeaders[setB].getNumElements())  // if A is larger set, merge B into A
     {
-//        cout<<"\nA is larger set, so entered if of merge() amd will merge B into A.\n";
-        // A is lager set, so merge B into A
-        i = setHeaders[setB].getFirstElementIndex();
-//        cout<<"\nfirst element index of B: "<<i<<endl;
+        i = setHeaders[setB].getFirstElementIndex();                            // change the elements in setB to setA
         while(elements[i].getNextElementIndex() != -1)
         {
             elements[i].setSETname(setA);
-//            displayMFSET(6);
             i = elements[i].getNextElementIndex();
         }
-        // append A tp end of B and call the result A
-        elements[i].setSETname(setA);
+        // append elements in set A to end of set B and call the result as set A
+        elements[i].setSETname(setA);                                            // set name of last element in set B as set A and set its next element index as that of A
         elements[i].setNextElementIndex(setHeaders[setA].getFirstElementIndex());
 
 
-        setHeaders[setA].setFirstElementIndex(setHeaders[setB].getFirstElementIndex());
-        setHeaders[setA].setNumElements(setHeaders[setA].getNumElements()+setHeaders[setB].getNumElements());
+        setHeaders[setA].setFirstElementIndex(setHeaders[setB].getFirstElementIndex());                         // set first element index of A as that of B since we are appending at the front
+        setHeaders[setA].setNumElements(setHeaders[setA].getNumElements()+setHeaders[setB].getNumElements());   // update number of elements in setA after appending
 
-        // nullifying setB
+        // nullifying setB by setting number of elements to 0 and index of first element as -1
         setHeaders[setB].setNumElements(0);
         setHeaders[setB].setFirstElementIndex(-1);
     }
@@ -260,29 +234,24 @@ void mfset::mergeSets(int setA, int setB)
     {
         // B is lager set, so merge A into B
         i = setHeaders[setA].getFirstElementIndex();
-//        cout<<"\nfirst element index of A: "<<i<<endl;
         while(elements[i].getNextElementIndex() != -1)
         {
             elements[i].setSETname(setB);
-//            displayMFSET(6);
             i = elements[i].getNextElementIndex();
         }
-        // append A tp end of B and call the result B
-        elements[i].setSETname(setB);
+        // append elements in set B to end of set A and call the result as set B
+        elements[i].setSETname(setB);                                                   // set name of last element in set A as set B and set its next element index as that of B
         elements[i].setNextElementIndex(setHeaders[setB].getFirstElementIndex());
 
-        setHeaders[setB].setFirstElementIndex(setHeaders[setA].getFirstElementIndex());   // set firstelement index of B as that of B since we are appending at the front
-        setHeaders[setB].setNumElements(setHeaders[setB].getNumElements()+setHeaders[setA].getNumElements());
-        // nullifying setB
+        setHeaders[setB].setFirstElementIndex(setHeaders[setA].getFirstElementIndex());                         // set first element index of B as that of A since we are appending at the front
+        setHeaders[setB].setNumElements(setHeaders[setB].getNumElements()+setHeaders[setA].getNumElements());   // update number of elements in setB after appending
+        // nullifying setA by setting number of elements to 0 and index of first element as -1
         setHeaders[setA].setNumElements(0);
         setHeaders[setA].setFirstElementIndex(-1);
     }
-//    cout<<endl;
-//    cout<<"Displaying MFSET in the merge function\n";
-//    displayMFSET(6);
-//    cout<<"\n MERGE ENDS!!!";
 }
 
+// ==== returns the set to which element x belongs ====
 int mfset::findSet(int x)
 {
     return elements[x].getSETname();

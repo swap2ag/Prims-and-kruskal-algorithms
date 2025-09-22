@@ -1,94 +1,60 @@
-#include<iostream>
-#include"graph.h"
+/*
+    This file contains the definition of function for Kruskal's algorithm which takes a graph instance as input and returns it as output after creating MST
+*/
+#include <iostream>
 
-#include"kruskalADTs.h"
-#include"kruskal.h"
+#include "graph.h"
+#include "kruskalADTs.h"
+#include "kruskal.h"
 
-using namespace std;
 graph kruskal(graph g)
 {
-//    g.mst = NULL;       // set T of edges in MST
-	g.mst = new int[2*(g.getNumNodes()-1)];
-    int currConnectedComponents,next=0;
-    priorityQueue q(g);
-    q.makeNull();
-    currConnectedComponents = g.getNumNodes();
-    mfset m(currConnectedComponents,currConnectedComponents);
+    g.mst = new int[2*(g.getNumNodes()-1)];             // mst is an array and contains nodes in MST. For each edge, 2 vertices are there and thus 2 memory locations in MST.
+    int currConnectedComponents,next=0;                 // current connected components
+    priorityQueue q(g);                                 // declare a priority queue object
+    q.makeNull();                                       // makes it NULL
+    currConnectedComponents = g.getNumNodes();          // initially, all vertices are in different components
+    mfset m(currConnectedComponents,currConnectedComponents);   // declares an MST
 
-    for(int i=0;i<g.getNumNodes();i++)
+    for(int i=0;i<g.getNumNodes();i++)                  // initially add all elements to different sets
     {
         m.initial(next,i);
         next++;
-
     }
-//    cout<<"after for loop of initial()..................................\n";
-//    m.displayMFSET(g.getNumNodes());
 
-//    cout<<" =========================================================================================================================== \n";
-//    cout<<"just before demon for loop -------------\\ \n";
-//    m.displayMFSET(g.getNumNodes());
-    for(int i=0;i<g.getNumNodes();i++)
+    for(int i=0;i<g.getNumNodes();i++)                  // add all edges present in graph in priority queue
     {
         for(int j=i+1;j<g.getNumNodes();j++)
         {
             if((g.getEdge(i,j)!= -1) && (g.getEdge(i,j)!=0))    // for all edges in E
             {
-//                m.displayMFSET(g.getNumNodes());
                 PQ_entry x(i,j,g.getEdge(i,j));         // make a PQ_entry
                 q.insertInPQ(x);                        // insert that entry in PQ
             }
         }
-//
     }
 
-//    cout<<"\njust after for loop ----------------------------\n\n\n\n\n";
-//    cout<<"\n\n\n\n\n";
-//    m.displayMFSET(g.getNumNodes());
-    g.mstCost = 0;
-//    cout<<"Initial MST cost: "<<g.mstCost<<"\n";
-    int mstIndex=0;
+    g.mstCost = 0;                                      // initialize mstCost as 0
+    int mstIndex=0;                                     // initialize index of first element of mst
 
-//    cout<<"just befor while loop: "<<endl;
-    while(currConnectedComponents>1)
+    while(currConnectedComponents>1)                    // till 1 connected component(ie full MST forms) remains
     {
-//        cout<<"Inside while loop"<<endl;
-
-//        cout<<"line 48 over\n";
         PQ_entry y;
-//        cout<<"created y: ";
-        y = q.deleteMin();
-//        cout<<"deletemin ends\n";
-//        cout<<"\ndetails of deleted element: \n";
-//        cout<<"("<<y.getV1()<<","<<y.getV2()<<"): "<<y.getPriority();
-        int Cu = m.findSet(y.getV1());
-//        cout<<"\nCu is: "<<Cu<<endl;
-        int Cv = m.findSet(y.getV2());
-//        cout<<"Cv is: "<<Cv<<"\n";
-//         m.displayMFSET(g.getNumNodes());
-        if (Cu != Cv)
+        y = q.deleteMin();                              // delete the lowest cost edge from priority queue
+
+        int Cu = m.findSet(y.getV1());                  // find the set to which first vertex of this lowest cost belongs to
+        int Cv = m.findSet(y.getV2());                  // find the set to which second vertex of this lowest cost belongs to
+        if (Cu != Cv)                                   // if both the sets are not same, then insert these vertices in MST
         {
-//            cout<<"\nboth the vertices don't belong to same set, so, merging 2 sets\n";
-//            cout<<"Inside if of while loop: \n";
-//            cout<<"displaying before merge-------------------->\n";
-//            m.displayMFSET(g.getNumNodes());
-
-            m.mergeSets(Cu,Cv);         // Cu and Cv are set names
-//            m.displayMFSET(g.getNumNodes());
-//            cout<<"Sucessfully merged and displayed!!!!\n";
-            *(g.mst+mstIndex) = y.getV1();
-//            cout<<"getV1 over\n";
-            g.mst[mstIndex+1] = y.getV2();
-            g.mstCost = g.mstCost+y.getPriority();
-//            cout<<"added mstcost over\n";
-
-//            cout<<"new edge in MST: ("<<g.mst[mstIndex]<<", "<<g.mst[mstIndex+1]<<")-> "<<g.mstCost<<"\n";
-            mstIndex = mstIndex + 2;
-            currConnectedComponents--;
-//            cout<<"Connected components: "<<currConnectedComponents<<"\n";
+            m.mergeSets(Cu,Cv);                         // Cu and Cv are set names
+            *(g.mst+mstIndex) = y.getV1();              // inserts the vertex1 into MST
+            g.mst[mstIndex+1] = y.getV2();              // insert the vertex 2 into MST
+            g.mstCost = g.mstCost+y.getPriority();      // update the total cost of MST
+            mstIndex = mstIndex + 2;                    // increment index of MST so as to store next elements
+            currConnectedComponents--;                  // decrement the number of connected components since two components have merged into one
         }
-
     }
-//    cout<<"\nKruskal's successfully over....\n";
+    // cout<<"\nKruskal's successfully over....\n";
     return g;
 }
 
