@@ -1,13 +1,15 @@
 /*
     This file contains the definition of function for Kruskal's algorithm which takes a graph instance as input and returns it as output after creating MST
 */
-#include"graph.h"
-#include"kruskalADTs.h"
-#include"kruskal.h"
+#include <iostream>
+
+#include "graph.h"
+#include "kruskalADTs.h"
+#include "kruskal.h"
 
 graph kruskal(graph g)
 {
-	g.mst = new int[2*(g.getNumNodes()-1)];             // mst is an array and contains nodes in MST. For each edge, 2 vertices are there and thus 2 memory locations in MST.
+    g.mst = new int[2*(g.getNumNodes()-1)];             // mst is an array and contains nodes in MST. For each edge, 2 vertices are there and thus 2 memory locations in MST.
     int currConnectedComponents,next=0;                 // current connected components
     priorityQueue q(g);                                 // declare a priority queue object
     q.makeNull();                                       // makes it NULL
@@ -20,7 +22,7 @@ graph kruskal(graph g)
         next++;
     }
 
-  for(int i=0;i<g.getNumNodes();i++)                    // add all edges present in graph in priority queue
+    for(int i=0;i<g.getNumNodes();i++)                  // add all edges present in graph in priority queue
     {
         for(int j=i+1;j<g.getNumNodes();j++)
         {
@@ -52,5 +54,7 @@ graph kruskal(graph g)
             currConnectedComponents--;                  // decrement the number of connected components since two components have merged into one
         }
     }
-    return g;                                           // return the graph instance
+    // cout<<"\nKruskal's successfully over....\n";
+    return g;
 }
+

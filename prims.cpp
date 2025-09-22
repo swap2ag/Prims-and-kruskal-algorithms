@@ -50,3 +50,4 @@ graph prims(graph g)
     }
     return g;                                               // return graph instance
 }
+

@@ -20,8 +20,8 @@ graph::graph(int n)                             // n is number of nodes
     infCost = 0;                                // sets infinity cost, mstCost, maxCost to 0
     mstCost = 0;
     maxCost = 0;
+}										// Number of nodes have to be passed and and a graph with no edges will be constructed by this
 
-}
 //=====Getters======
 int graph::getNumNodes()                        // returns the number of nodes in the graph
 {

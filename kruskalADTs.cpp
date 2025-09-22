@@ -53,6 +53,7 @@ priorityQueue::priorityQueue(graph g)               // g is passed so that size 
                                                     // and whose maximum value can be n*(n-1), where n is the number of nodes in the graph
     numNodes = numNodes*(numNodes-1);
 	contents = new PQ_entry[numNodes];
+    // need to add entries in this from the graph.
 }
 
 // ==== functions for priority queue ====
@@ -67,9 +68,16 @@ void priorityQueue::insertInPQ(PQ_entry x)
 {
     int i;
     PQ_entry temp;                                  // a temporary entry for swapping entries
+//    cout<<"last is: "<<last<<endl;
+//    cout<<"Contents of PQ after entering insertinPQ()-------->>>>\n";
+//    for(int i=1;i<=last;i++)
+//    {
+//        cout<<"contents of "<<i<<"th element: "<<"v1: "<<contents[i].getV1()<<" v2: "<<contents[i].getV2()<<" cost: "<<contents[i].getPriority()<<"\n";
+//    }
     if (last>numNodes)                              // this numNodes is size of priority queue
     {
         std::cout<<"Priority queue is full";
+//        return this;
     }
     else
     {
@@ -90,6 +98,7 @@ void priorityQueue::insertInPQ(PQ_entry x)
             i = i/2;
         }
     }
+//    return this;
 }
 
 // deletes the minimum cost(max priority) element from priority queue
@@ -98,6 +107,8 @@ PQ_entry priorityQueue::deleteMin()
     int i,j;
     PQ_entry tempEntry;    // a temporary entry to move the last node which has been placed at the root of partially ordered to its child nodes so that cost of parent is less than cost of child
     PQ_entry minimumEntry; // to store and return minimum cost entry
+//    cout<<"\ndeleteMIn begins\n";
+//    cout<<"last is: "<<last<<endl;
     if(last == 0)          // if last is 0, then priority queue is empty
         std::cout<<"Priority queue is empty\n";
     else
@@ -245,3 +256,4 @@ int mfset::findSet(int x)
 {
     return elements[x].getSETname();
 }
+
